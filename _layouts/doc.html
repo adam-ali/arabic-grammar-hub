@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ page.title }} · Arabic Grammar Hub</title>
+<meta name="description" content="{{ page.description }}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Scheherazade+New:wght@400;700&family=Figtree:wght@400;500;600;700&display=swap">
+<style>
+:root{--bg:#f6f7f4;--surface:#fff;--ink:#1d2421;--muted:#5d6a64;--line:#dde3df;--accent:#2f7a4f;--mark:#b8860b}
+@media (prefers-color-scheme: dark){:root{--bg:#121715;--surface:#1a211e;--ink:#e7ece9;--muted:#9aa8a1;--line:#2c3632;--accent:#7dcc9b;--mark:#e0b84a;color-scheme:dark}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;font-size:16px;line-height:1.65;padding:0 16px}
+main{max-width:760px;margin:0 auto;padding:28px 0 72px}
+nav.top{max-width:760px;margin:0 auto;padding-top:20px;font-size:14px}
+a{color:var(--accent)}
+:focus-visible{outline:2px solid var(--mark);outline-offset:2px}
+h1{font-size:28px;line-height:1.25;margin:0 0 8px}
+h2{font-size:21px;margin:44px 0 10px;padding-top:12px;border-top:1px solid var(--line)}
+h3{font-size:17px;margin:32px 0 8px}
+/* Arabic runs inline in English prose: give it a readable naskh face and a little more size */
+:lang(ar),.ar{font-family:"Scheherazade New","Amiri","Noto Naskh Arabic",serif}
+main :is(p,li,td){word-wrap:break-word}
+table{border-collapse:collapse;display:block;overflow-x:auto;max-width:100%;margin:16px 0;background:var(--surface);border:1px solid var(--line);border-radius:10px}
+th,td{padding:8px 12px;border-bottom:1px solid var(--line);text-align:start;vertical-align:top}
+th{font-size:13px;color:var(--muted)}
+tr:last-child td{border-bottom:0}
+code{font-size:.9em}
+hr{border:0;border-top:1px solid var(--line)}
+footer{max-width:760px;margin:0 auto;padding:0 0 40px;color:var(--muted);font-size:13px}
+</style>
+</head>
+<body>
+<nav class="top"><a href="{{ '/' | relative_url }}">← Arabic Grammar Hub</a></nav>
+<main>
+{{ content }}
+</main>
+<footer>Notes licensed <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> · <a href="https://github.com/adam-ali/arabic-grammar-hub">Source and corrections on GitHub</a></footer>
+<script>
+// Wrap runs of Arabic text in spans so they get the Arabic font at a readable size
+(function(){
+  const re=/[؀-ۿݐ-ݿﭐ-﷿ﹰ-﻿][؀-ۿݐ-ݿﭐ-﷿ﹰ-﻿\s،؛؟ـ·،؛؟().\-]*[؀-ۿݐ-ݿﭐ-﷿ﹰ-﻿]|[؀-ۿ]/g;
+  const w=document.createTreeWalker(document.querySelector('main'),NodeFilter.SHOW_TEXT);
+  const nodes=[];while(w.nextNode())nodes.push(w.currentNode);
+  for(const n of nodes){
+    const t=n.nodeValue;if(!/[؀-ۿ]/.test(t))continue;
+    const f=document.createDocumentFragment();let last=0;
+    t.replace(re,(m,i)=>{f.append(t.slice(last,i));const s=document.createElement('span');s.lang='ar';s.dir='rtl';s.style.fontSize='1.3em';s.style.lineHeight='1.3';s.textContent=m;f.append(s);last=i+m.length;});
+    f.append(t.slice(last));n.replaceWith(f);
+  }
+})();
+</script>
+</body>
+</html>
