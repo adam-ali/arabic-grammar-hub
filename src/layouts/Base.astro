@@ -36,10 +36,10 @@ const json = JSON.stringify(clientData()).replace(/</g, '\\u003c');
 <meta name="description" content={desc}>
 <link rel="icon" href={href('favicon.svg')} type="image/svg+xml">
 <script is:inline>
-  // Set theme and sidebar before first paint.
+  // Set theme, sidebar and colour preferences before first paint.
   (function () {
     var d = document.documentElement, t;
-    try { t = localStorage.getItem('agh.theme'); if (localStorage.getItem('agh.sidebar') === 'hidden') d.dataset.sidebar = 'hidden'; } catch (e) {}
+    try { t = localStorage.getItem('agh.theme'); if (localStorage.getItem('agh.sidebar') === 'hidden') d.dataset.sidebar = 'hidden'; if (localStorage.getItem('agh.colors') === 'off') d.dataset.colors = 'off'; } catch (e) {}
     if (!t) t = window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
     d.dataset.theme = t;
   })();

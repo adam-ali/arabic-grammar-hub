@@ -71,7 +71,18 @@ The plan runs for 10 weeks. Tick each week off when it's done. Page numbers are 
 
 **Focus drills:** 1, 4 and 5.
 
-**Checkpoint:** give the وَزْن of جَلَسَ, فَرِحَ, كَثُرَ, مَرِضَ, رَفَعَ; and name the letter ر in قَرُبَ. *Answers:* فَعَلَ · فَعِلَ · فَعُلَ · فَعِلَ · فَعَلَ · عَيْنُ الْفِعْلِ
+**Checkpoint:**
+
+1. Which vowel decides the وَزْن of a three-letter past verb?
+   *Answer:* The vowel on the عَيْن (the middle letter).
+2. Give the وَزْن of جَلَسَ and رَفَعَ.
+   *Answer:* Both are فَعَلَ.
+3. Give the وَزْن of فَرِحَ and مَرِضَ.
+   *Answer:* Both are فَعِلَ.
+4. Give the وَزْن of كَثُرَ.
+   *Answer:* فَعُلَ.
+5. Which letter of قَرُبَ is the ر?
+   *Answer:* عَيْنُ الْفِعْلِ, the 2nd letter.
 
 ### Lesson 2 — الاسْتِعْدَادُ لِلرِّحْلَةِ (pp. 23–38) — the past with doer pronouns
 
@@ -103,7 +114,20 @@ The plan runs for 10 weeks. Tick each week off when it's done. Page numbers are 
 
 **Focus drills:** 1–5 (one per pronoun group), 7–9 (corrections) and 13 (Qur’an).
 
-**Checkpoint:** conjugate فَتَحَ for هُنَّ, أَنْتُمْ, هُمَا (f) and أَنْتِ; then correct زَيْنَبُ وَعَائِشَةُ طَلَبَتْ. *Answers:* فَتَحْنَ · فَتَحْتُمْ · فَتَحَتَا · فَتَحْتِ · زَيْنَبُ وَعَائِشَةُ طَلَبَتَا
+**Checkpoint:**
+
+1. Conjugate فَتَحَ for هُنَّ.
+   *Answer:* فَتَحْنَ
+2. Conjugate فَتَحَ for أَنْتُمْ.
+   *Answer:* فَتَحْتُمْ
+3. Conjugate فَتَحَ for هُمَا (feminine).
+   *Answer:* فَتَحَتَا
+4. Conjugate فَتَحَ for أَنْتِ.
+   *Answer:* فَتَحْتِ
+5. Correct the mistake: زَيْنَبُ وَعَائِشَةُ طَلَبَتْ.
+   *Answer:* زَيْنَبُ وَعَائِشَةُ طَلَبَتَا. A verb after its named doer agrees with it.
+6. Is the تْ in كَتَبَتْ a pronoun?
+   *Answer:* No. It only marks the feminine; the doer is a hidden هِيَ.
 
 ### Lesson 3 — عِنْدَ الْقَاضِي (pp. 39–53) — the past with object pronouns
 
@@ -125,13 +149,32 @@ The plan runs for 10 weeks. Tick each week off when it's done. Page numbers are 
 
 **Focus drills:** 1, 3, 6, 7, 9 and 12.
 
-**Checkpoint:** write سَبَقَ + أَنَا (doer) + أَنْتُمْ (object); نَصَحَ + نَحْنُ + هِيَ; تَرَكَ + أَنْتُمْ + أَنَا; رَحِمَ + أَنْتَ + أَنَا. *Answers:* سَبَقْتُكُمْ · نَصَحْنَاهَا · تَرَكْتُمُونِي · رَحِمْتَنِي
+**Checkpoint:**
+
+1. Write سَبَقَ + أَنَا (doer) + أَنْتُمْ (object).
+   *Answer:* سَبَقْتُكُمْ
+2. Write نَصَحَ + نَحْنُ (doer) + هِيَ (object).
+   *Answer:* نَصَحْنَاهَا
+3. Write تَرَكَ + أَنْتُمْ (doer) + أَنَا (object).
+   *Answer:* تَرَكْتُمُونِي. تُمْ becomes تُمُو, and "me" needs its ن.
+4. Write رَحِمَ + أَنْتَ (doer) + أَنَا (object).
+   *Answer:* رَحِمْتَنِي
+5. What is the difference between عَرَفْنَا and عَرَفَنَا?
+   *Answer:* عَرَفْنَا = "we knew" (ـنَا is the doer). عَرَفَنَا = "he knew us" (ـنَا is the object).
 
 ## Lessons 4–5: the present verb and its vowel groups
 
 ### Lesson 4 — عِيدُ الْفِطْرِ (pp. 54–65) — making the مُضَارِع
 
 **Goal:** turn any three-letter past verb into its present, for every pronoun.
+
+```tree
+أَحْرُفُ الْمُضَارَعَةِ | remembered as أَنَيْتُ
+- أَ | أَنَا · أَذْهَبُ
+- نَ | نَحْنُ · نَذْهَبُ
+- يَ | هُوَ، هُمَا، هُمْ، هُنَّ · يَذْهَبُ
+- تَ | هِيَ، هُمَا (f) and every "you" · تَذْهَبُ
+```
 
 - **أَحْرُفُ الْمُضَارَعَةِ**: the four letters that start a present verb, remembered as **أَنَيْتُ**: أ (أَنَا), ن (نَحْنُ), ي (هُوَ, هُمَا, هُمْ, هُنَّ), ت (هِيَ, هُمَا (f) and every "you").
 - **The recipe** (p. 57): (1) add a حَرْفُ مُضَارَعَةٍ with a fatha, (2) put a **sukun** on the فَاء: ذَهَبَ → يَذْهَبُ.
@@ -150,7 +193,20 @@ The plan runs for 10 weeks. Tick each week off when it's done. Page numbers are 
 
 **Focus drills:** 2–6, 9 and 11.
 
-**Checkpoint:** give the مُضَارِع of نَزَلْتُ, فَعَلَتْ (هِيَ), سَمِعَا, سَكَنُوا, طَلَبْتِ. *Answers:* أَنْزِلُ · تَفْعَلُ · يَسْمَعَانِ · يَسْكُنُونَ · تَطْلُبِينَ
+**Checkpoint:**
+
+1. Give the مُضَارِع of نَزَلْتُ.
+   *Answer:* أَنْزِلُ
+2. Give the مُضَارِع of فَعَلَتْ (هِيَ).
+   *Answer:* تَفْعَلُ
+3. Give the مُضَارِع of سَمِعَا.
+   *Answer:* يَسْمَعَانِ
+4. Give the مُضَارِع of سَكَنُوا.
+   *Answer:* يَسْكُنُونَ
+5. Give the مُضَارِع of طَلَبْتِ.
+   *Answer:* تَطْلُبِينَ
+6. Who can تَذْهَبُ refer to?
+   *Answer:* Two people: أَنْتَ or هِيَ. The sentence tells you which.
 
 ### Lesson 5 — شَهْرُ رَمَضَانَ (pp. 66–77) — the six أَبْوَاب
 
@@ -177,7 +233,20 @@ The plan runs for 10 weeks. Tick each week off when it's done. Page numbers are 
 
 **Focus drills:** 1, 2 (all five parts) and 3.
 
-**Checkpoint:** give the مُضَارِع and بَاب of رَكِبَ, نَصَحَ, غَسَلَ, سَكَنَ, حَسُنَ, لَزِمَ. *Answers:* يَرْكَبُ (4) · يَنْصَحُ (3) · يَغْسِلُ (2) · يَسْكُنُ (1) · يَحْسُنُ (5) · يَلْزَمُ (4)
+**Checkpoint:**
+
+1. Give the مُضَارِع and بَاب of رَكِبَ.
+   *Answer:* يَرْكَبُ, بَاب 4 (عَلِمَ يَعْلَمُ).
+2. Give the مُضَارِع and بَاب of نَصَحَ.
+   *Answer:* يَنْصَحُ, بَاب 3 (فَتَحَ يَفْتَحُ).
+3. Give the مُضَارِع and بَاب of غَسَلَ.
+   *Answer:* يَغْسِلُ, بَاب 2 (ضَرَبَ يَضْرِبُ).
+4. Give the مُضَارِع and بَاب of سَكَنَ.
+   *Answer:* يَسْكُنُ, بَاب 1 (نَصَرَ يَنْصُرُ).
+5. Give the مُضَارِع and بَاب of حَسُنَ.
+   *Answer:* يَحْسُنُ, بَاب 5 (كَرُمَ يَكْرُمُ). A فَعُلَ verb always keeps u.
+6. Give the مُضَارِع and بَاب of لَزِمَ.
+   *Answer:* يَلْزَمُ, بَاب 4 (عَلِمَ يَعْلَمُ).
 
 ## Lessons 6–7: the command, longer verbs, and the dictionary
 
@@ -204,7 +273,18 @@ The plan runs for 10 weeks. Tick each week off when it's done. Page numbers are 
 
 **Focus drills:** 1–7 and 10.
 
-**Checkpoint:** give the أَمْر of يَشْكُرُ, يَلْزَمُ, يَغْسِلُ; تَنْصَحْنَ for أَنْتُنَّ; and تَدْخُلِينَ for أَنْتِ. *Answers:* اُشْكُرْ · اِلْزَمْ · اِغْسِلْ · اِنْصَحْنَ · اُدْخُلِي
+**Checkpoint:**
+
+1. Give the أَمْر of يَشْكُرُ.
+   *Answer:* اُشْكُرْ. The middle vowel is u, so the hamza takes u.
+2. Give the أَمْر of يَلْزَمُ.
+   *Answer:* اِلْزَمْ
+3. Give the أَمْر of يَغْسِلُ.
+   *Answer:* اِغْسِلْ
+4. Give the أَمْر of تَنْصَحْنَ (أَنْتُنَّ).
+   *Answer:* اِنْصَحْنَ
+5. Give the أَمْر of تَدْخُلِينَ (أَنْتِ).
+   *Answer:* اُدْخُلِي. The first vowel stays u with every pronoun.
 
 ### Lesson 6b — (pp. 89–99) — مُضَارِع and أَمْر of longer verbs (غَيْرُ الثُّلَاثِيَّةِ)
 
@@ -237,7 +317,18 @@ The plan runs for 10 weeks. Tick each week off when it's done. Page numbers are 
 
 **Focus drills:** 6b drills 1, 2 (a–e), 3; then 6b-amr drills 1–4.
 
-**Checkpoint:** give the مُضَارِع and أَمْر of أَحْضَرَ, تَأَخَّرَ, سَافَرَ, اِسْتَغْفَرَ, رَتَّبَ. *Answers:* يُحْضِرُ / أَحْضِرْ · يَتَأَخَّرُ / تَأَخَّرْ · يُسَافِرُ / سَافِرْ · يَسْتَغْفِرُ / اِسْتَغْفِرْ · يُرَتِّبُ / رَتِّبْ
+**Checkpoint:**
+
+1. Give the مُضَارِع and أَمْر of أَحْضَرَ.
+   *Answer:* يُحْضِرُ / أَحْضِرْ
+2. Give the مُضَارِع and أَمْر of تَأَخَّرَ.
+   *Answer:* يَتَأَخَّرُ / تَأَخَّرْ
+3. Give the مُضَارِع and أَمْر of سَافَرَ.
+   *Answer:* يُسَافِرُ / سَافِرْ
+4. Give the مُضَارِع and أَمْر of اِسْتَغْفَرَ.
+   *Answer:* يَسْتَغْفِرُ / اِسْتَغْفِرْ
+5. Give the مُضَارِع and أَمْر of رَتَّبَ.
+   *Answer:* يُرَتِّبُ / رَتِّبْ. With the shadda it has 4 letters, so the مُضَارِع starts with a damma.
 
 ### Lesson 7 — الْهِجْرَةُ إِلَى الْحَبَشَةِ (pp. 100–106) — using a dictionary
 
@@ -257,7 +348,18 @@ The plan runs for 10 weeks. Tick each week off when it's done. Page numbers are 
 
 **Focus drills:** 1–4.
 
-**Checkpoint:** give the bare past and the dictionary chapter for يَرْكَعُونَ, اِغْسِلِي, تَسْمَعْنَ, أَخْرَجَ; then put سَمِعَ · سَبَقَ · سَأَلَ in dictionary order. *Answers:* رَكَعَ (الرَّاء) · غَسَلَ (الْغَيْن) · سَمِعَ (السِّين) · خَرَجَ (الْخَاء) · سَأَلَ → سَبَقَ → سَمِعَ
+**Checkpoint:**
+
+1. Give the bare past and dictionary chapter of يَرْكَعُونَ.
+   *Answer:* رَكَعَ, in بَابُ الرَّاءِ.
+2. Give the bare past and dictionary chapter of اِغْسِلِي.
+   *Answer:* غَسَلَ, in بَابُ الْغَيْنِ.
+3. Give the bare past and dictionary chapter of تَسْمَعْنَ.
+   *Answer:* سَمِعَ, in بَابُ السِّينِ.
+4. Give the bare past and dictionary chapter of أَخْرَجَ.
+   *Answer:* خَرَجَ, in بَابُ الْخَاءِ.
+5. Put in dictionary order: سَمِعَ · سَبَقَ · سَأَلَ.
+   *Answer:* سَأَلَ → سَبَقَ → سَمِعَ (by the 2nd letter: ء, ب, م).
 
 ### General exercises (pp. 107–115)
 

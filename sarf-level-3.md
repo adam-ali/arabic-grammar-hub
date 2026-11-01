@@ -63,6 +63,17 @@ These four lessons give you the tools for the rest of the book: weighing a verb,
 
 **Goal:** give any verb its وَزْن (pattern) and say whether it is مُجَرَّدٌ or مَزِيدٌ.
 
+```tree
+الْفِعْلُ | by its letters
+- مُجَرَّدٌ | root letters only
+  - ثُلَاثِيٌّ | فَعَلَ · وَقَفَ
+  - رُبَاعِيٌّ | فَعْلَلَ · طَمْأَنَ
+- مَزِيدٌ | extra letters added
+  - one extra | فَاعَلَ · قَاتَلَ
+  - two extra | افْتَعَلَ · انْتَصَرَ
+  - three extra | اسْتَفْعَلَ · اسْتَغْفَرَ
+```
+
 - **الْمِيزَانُ الصَّرْفِيُّ** (the scale): the letters ف ع ل stand in for a verb's three root letters, so صَبَرَ is weighed as فَعَلَ.
 - **فَاءُ / عَيْنُ / لَامُ الْفِعْلِ**: the 1st, 2nd and 3rd root letters. You will see these names in every lesson.
 - **مُجَرَّدٌ**: the verb has only its root letters (وَقَفَ, طَمْأَنَ). **مَزِيدٌ**: it has extra letters added (قَاتَلَ, انْتَصَرَ).
@@ -79,7 +90,20 @@ These four lessons give you the tools for the rest of the book: weighing a verb,
 
 **Focus drills:** 3, 5 and 6 (weights and extra letters).
 
-**Checkpoint:** give the وَزْن of جَلَسَ, حَسُنَ, شَاهَدَ, اسْتَغْفَرَ, طَمْأَنَ, اشْتَرَى. *Answers:* فَعَلَ · فَعُلَ · فَاعَلَ · اسْتَفْعَلَ · فَعْلَلَ · افْتَعَلَ
+**Checkpoint:**
+
+1. Give the وَزْن of جَلَسَ and of حَسُنَ.
+   *Answer:* فَعَلَ and فَعُلَ. The weight copies the vowels.
+2. Give the وَزْن of شَاهَدَ.
+   *Answer:* فَاعَلَ. The extra alif is copied into the weight.
+3. Give the وَزْن of اسْتَغْفَرَ.
+   *Answer:* اسْتَفْعَلَ
+4. Give the وَزْن of طَمْأَنَ. Is it مُجَرَّد or مَزِيد?
+   *Answer:* فَعْلَلَ. It is مُجَرَّد: all four letters are root letters.
+5. Give the وَزْن of اشْتَرَى.
+   *Answer:* افْتَعَلَ. The hidden root letter still shows in the weight.
+6. Which word holds the ten letters that can be added?
+   *Answer:* سَأَلْتُمُونِيهَا
 
 ### Lesson 2 — كَيْفَ أَسْلَمَ عُمَرُ؟ (pp. 31–42)
 
@@ -102,7 +126,20 @@ These four lessons give you the tools for the rest of the book: weighing a verb,
 
 **Focus drills:** 1, 4, 7 and 9–12.
 
-**Checkpoint:** give the root and pattern of اسْتَخْرَجَ, تَعَلَّمَ, انْصَرَفَ, سَافَرَ, اعْتَرَفَ, أَرْسَلَ. *Answers:* خ ر ج اسْتَفْعَلَ · ع ل م تَفَعَّلَ · ص ر ف انْفَعَلَ · س ف ر فَاعَلَ · ع ر ف افْتَعَلَ · ر س ل أَفْعَلَ
+**Checkpoint:**
+
+1. Give the root and pattern of اسْتَخْرَجَ.
+   *Answer:* خ ر ج · اسْتَفْعَلَ
+2. Give the root and pattern of تَعَلَّمَ.
+   *Answer:* ع ل م · تَفَعَّلَ
+3. Give the root and pattern of انْصَرَفَ.
+   *Answer:* ص ر ف · انْفَعَلَ
+4. Give the root and pattern of سَافَرَ.
+   *Answer:* س ف ر · فَاعَلَ
+5. Give the root and pattern of اعْتَرَفَ.
+   *Answer:* ع ر ف · افْتَعَلَ. The extra ت comes after the first root letter.
+6. Give the root and pattern of أَرْسَلَ.
+   *Answer:* ر س ل · أَفْعَلَ
 
 ### Lesson 3 — كَلَامُ النَّاسِ (pp. 43–53)
 
@@ -120,23 +157,38 @@ These four lessons give you the tools for the rest of the book: weighing a verb,
 
 **Focus drills:** 3, 6, 7, 8 and 9.
 
-**Checkpoint:** give اسْمُ الْفَاعِلِ of شَرِبَ, نَامَ, دَعَا; اسْمُ الْمَفْعُولِ of فَتَحَ, سَمِعَ; and the verb behind مَطْبُوخ. *Answers:* شَارِب · نَائِم · دَاعٍ (الدَّاعِي) · مَفْتُوح · مَسْمُوع · طَبَخَ
+**Checkpoint:**
+
+1. Give اسْمُ الْفَاعِلِ of شَرِبَ.
+   *Answer:* شَارِب
+2. Give اسْمُ الْفَاعِلِ of نَامَ.
+   *Answer:* نَائِم. A hollow verb puts a hamza where the alif was.
+3. Give اسْمُ الْفَاعِلِ of دَعَا.
+   *Answer:* دَاعٍ, and with ال: الدَّاعِي.
+4. Give اسْمُ الْمَفْعُولِ of فَتَحَ and of سَمِعَ.
+   *Answer:* مَفْتُوح and مَسْمُوع.
+5. Which verb is مَطْبُوخ made from?
+   *Answer:* طَبَخَ
 
 ### Lesson 4 — بِلَالٌ (pp. 54–64)
 
 **Goal:** look at a verb's three root letters and name its type. This vocabulary is used in every lesson from 5 to 15.
 
 - **حُرُوفُ الْعِلَّةِ** (weak letters): ا و ي.
-- **صَحِيحٌ** (strong): no root letter is weak. It has three kinds:
-  - **سَالِمٌ**: no hamza and no doubling: دَخَلَ, شَرِبَ
-  - **مُضَعَّفٌ**: عَيْن and لَام are the same letter: مَدَّ (from م د د)
-  - **مَهْمُوزٌ**: one root letter is a hamza: أَخَذَ, سَأَلَ, قَرَأَ
-- **مُعْتَلٌّ** (weak): at least one root letter is weak. It has five kinds:
-  - **مِثَالٌ**: weak فَاء (first letter): وَضَعَ, يَئِسَ
-  - **أَجْوَفٌ**: weak عَيْن (middle letter, "hollow"): قَالَ, نَامَ
-  - **نَاقِصٌ**: weak لَام (last letter, "defective"): رَضِيَ, دَعَا
-  - **لَفِيفٌ مَقْرُونٌ**: weak عَيْن and لَام, side by side: نَوَى
-  - **لَفِيفٌ مَفْرُوقٌ**: weak فَاء and لَام, separated: وَقَى
+
+```tree
+الْفِعْلُ | by its three root letters
+- صَحِيحٌ | strong: no weak root letter
+  - سَالِمٌ | no hamza, no doubling · دَخَلَ، شَرِبَ
+  - مُضَعَّفٌ | عَيْن and لَام the same · مَدَّ (م د د)
+  - مَهْمُوزٌ | a hamza in the root · أَخَذَ، سَأَلَ، قَرَأَ
+- مُعْتَلٌّ | weak: a root letter is و or ي
+  - مِثَالٌ | weak فَاء (first) · وَضَعَ، يَئِسَ
+  - أَجْوَفُ | weak عَيْن (middle, "hollow") · قَالَ، نَامَ
+  - نَاقِصٌ | weak لَام (last, "defective") · رَضِيَ، دَعَا
+  - لَفِيفٌ مَقْرُونٌ | weak عَيْن and لَام, side by side · نَوَى
+  - لَفِيفٌ مَفْرُوقٌ | weak فَاء and لَام, separated · وَقَى
+```
 
 **Watch out for:**
 
@@ -146,7 +198,18 @@ These four lessons give you the tools for the rest of the book: weighing a verb,
 
 **Focus drills:** 1, 5 and 7.
 
-**Checkpoint:** name the type of شَدَّ, قَرَأَ, وَجَدَ, نَامَ, بَكَى, رَوَى, أَكْرَمَ. *Answers:* مُضَعَّف · مَهْمُوز · مِثَال · أَجْوَف · نَاقِص · لَفِيف مَقْرُون · سَالِم (the hamza is extra)
+**Checkpoint:**
+
+1. Name the type of شَدَّ and of قَرَأَ.
+   *Answer:* مُضَعَّف and مَهْمُوز.
+2. Name the type of وَجَدَ and of نَامَ.
+   *Answer:* مِثَال and أَجْوَف.
+3. Name the type of بَكَى and of رَوَى.
+   *Answer:* نَاقِص and لَفِيف مَقْرُون.
+4. Name the type of أَكْرَمَ.
+   *Answer:* سَالِم. Its root is ك ر م; the hamza is extra.
+5. Which letter hides in the alif of قَالَ, and how can you tell?
+   *Answer:* و. The مُضَارِع shows it: يَقُولُ.
 
 ## Lessons 5–8: conjugating the special verbs
 
@@ -172,7 +235,18 @@ One idea explains most of what happens in Lessons 6 and 8: some endings (تُ، 
 
 **Focus drills:** 2, 3, 4, 8 and 9.
 
-**Checkpoint:** give أَنَا + مُضَارِع of أَخَذَ; the أَمْر of أَكَلَ; both أَمْر forms of سَأَلَ; هُوَ + مُضَارِع of قَرَأَ; and the أَمْر of أَخَذَ for أَنْتِ. *Answers:* آخُذُ · كُلْ · اِسْأَلْ / سَلْ · يَقْرَأُ · خُذِي
+**Checkpoint:**
+
+1. Give أَنَا + مُضَارِع of أَخَذَ.
+   *Answer:* آخُذُ. The two hamzas combine into آ.
+2. Give the أَمْر of أَكَلَ.
+   *Answer:* كُلْ
+3. Give both أَمْر forms of سَأَلَ.
+   *Answer:* اِسْأَلْ and سَلْ.
+4. Give هُوَ + مُضَارِع of قَرَأَ.
+   *Answer:* يَقْرَأُ. A hamza at the end changes nothing.
+5. Give the أَمْر of أَخَذَ for أَنْتِ.
+   *Answer:* خُذِي
 
 ### Lesson 6 — الْخَنْسَاءُ (pp. 77–93) — الْمُضَعَّفُ
 
@@ -193,7 +267,18 @@ One idea explains most of what happens in Lessons 6 and 8: some endings (تُ، 
 
 **Focus drills:** 1, 2, 4, 5, 9 and 11.
 
-**Checkpoint:** conjugate عَدَّ for أَنَا (مَاضٍ), هُنَّ (مَاضٍ), هُنَّ (مُضَارِع), هُمْ (مَاضٍ), and give both أَمْر forms for أَنْتَ. *Answers:* عَدَدْتُ · عَدَدْنَ · يَعْدُدْنَ · عَدُّوا · عُدَّ / اُعْدُدْ
+**Checkpoint:**
+
+1. Conjugate عَدَّ for أَنَا in the مَاضٍ.
+   *Answer:* عَدَدْتُ. The shadda splits before تُ.
+2. Conjugate عَدَّ for هُنَّ in the مَاضٍ.
+   *Answer:* عَدَدْنَ
+3. Conjugate عَدَّ for هُنَّ in the مُضَارِع.
+   *Answer:* يَعْدُدْنَ
+4. Conjugate عَدَّ for هُمْ in the مَاضٍ.
+   *Answer:* عَدُّوا. No sukun, so the shadda stays.
+5. Give both أَمْر forms of عَدَّ for أَنْتَ.
+   *Answer:* عُدَّ and اُعْدُدْ.
 
 ### Lesson 7 — عُقْبَةُ بْنُ عَامِرٍ (pp. 94–107) — الْمِثَالُ
 
@@ -211,7 +296,18 @@ One idea explains most of what happens in Lessons 6 and 8: some endings (تُ، 
 
 **Focus drills:** 2, 3, 4, 6 and 8.
 
-**Checkpoint:** give هُوَ + مُضَارِع of وَصَلَ; the أَمْر of وَضَعَ for أَنْتُمْ; أَنَا + مُضَارِع of يَئِسَ; the أَمْر of تَوَقَّعَ; and the أَمْر of وَقَفَ for أَنْتِ. *Answers:* يَصِلُ · ضَعُوا · أَيْأَسُ · تَوَقَّعْ · قِفِي
+**Checkpoint:**
+
+1. Give هُوَ + مُضَارِع of وَصَلَ.
+   *Answer:* يَصِلُ. The و drops.
+2. Give the أَمْر of وَضَعَ for أَنْتُمْ.
+   *Answer:* ضَعُوا
+3. Give أَنَا + مُضَارِع of يَئِسَ.
+   *Answer:* أَيْأَسُ. A ي at the start stays.
+4. Give the أَمْر of تَوَقَّعَ.
+   *Answer:* تَوَقَّعْ. A مَزِيد مِثَال keeps its و.
+5. Give the أَمْر of وَقَفَ for أَنْتِ.
+   *Answer:* قِفِي
 
 ### Lesson 8 — بَيْنَ الْمَوْتِ وَالْحَيَاةِ (pp. 108–126) — الْأَجْوَفُ
 
@@ -237,7 +333,18 @@ One idea explains most of what happens in Lessons 6 and 8: some endings (تُ، 
 
 **Focus drills:** 1, 3, 4, 7, 8 and 9.
 
-**Checkpoint:** give أَنَا (مَاضٍ) of نَامَ; هُنَّ (مَاضٍ) of قَالَ; the أَمْر of بَاعَ for أَنْتَ; the أَمْر of قَامَ for أَنْتُمْ; and the root of صَامَ. *Answers:* نِمْتُ · قُلْنَ · بِعْ · قُومُوا · ص و م (from يَصُومُ)
+**Checkpoint:**
+
+1. Give أَنَا + مَاضٍ of نَامَ.
+   *Answer:* نِمْتُ
+2. Give هُنَّ + مَاضٍ of قَالَ.
+   *Answer:* قُلْنَ. The long vowel shrinks before the sukun.
+3. Give the أَمْر of بَاعَ for أَنْتَ.
+   *Answer:* بِعْ
+4. Give the أَمْر of قَامَ for أَنْتُمْ.
+   *Answer:* قُومُوا. No sukun, so the long vowel stays.
+5. What is the root of صَامَ?
+   *Answer:* ص و م. The مُضَارِع يَصُومُ shows the و.
 
 ## Lessons 9–12: the last weak verbs, then the passive
 
@@ -268,7 +375,20 @@ Three things happen to the weak letter (pp. 130–131):
 
 **Focus drills:** week 1: 1, 2, 5, 6 and 7 (مَشَى), 8–10 (دَعَا); week 2: 11–13 (نَهَى), 14–16 (رَضِيَ), 17 and 18.
 
-**Checkpoint:** give أَنَا (مَاضٍ) of مَشَى; هِيَ (مَاضٍ) of دَعَا; هُمْ (مَاضٍ) of رَضِيَ; the أَمْر of دَعَا for أَنْتَ; the أَمْر of نَسِيَ for أَنْتُمْ; and أَنْتُمْ (مُضَارِع) of مَشَى. *Answers:* مَشَيْتُ · دَعَتْ · رَضُوا · اُدْعُ · اِنْسَوْا · تَمْشُونَ
+**Checkpoint:**
+
+1. Give أَنَا + مَاضٍ of مَشَى.
+   *Answer:* مَشَيْتُ. The weak letter comes back as ي.
+2. Give هِيَ + مَاضٍ of دَعَا.
+   *Answer:* دَعَتْ
+3. Give هُمْ + مَاضٍ of رَضِيَ.
+   *Answer:* رَضُوا
+4. Give the أَمْر of دَعَا for أَنْتَ.
+   *Answer:* اُدْعُ. The weak letter drops completely.
+5. Give the أَمْر of نَسِيَ for أَنْتُمْ.
+   *Answer:* اِنْسَوْا
+6. Give أَنْتُمْ + مُضَارِع of مَشَى.
+   *Answer:* تَمْشُونَ
 
 ### Lesson 10 — الْعَمَلُ وَالنِّيَّةُ (pp. 150–158) — اللَّفِيفُ
 
@@ -284,7 +404,18 @@ Three things happen to the weak letter (pp. 130–131):
 
 **Focus drills:** 1, 3, 4, 6 and 7.
 
-**Checkpoint:** give أَنَا (مَاضٍ) of وَعَى; أَنْتِ (مُضَارِع) of وَقَى; هُمْ (مُضَارِع) of نَوَى; and the أَمْر for أَنْتَ of رَوَى and of وَقَى. *Answers:* وَعَيْتُ · تَقِينَ · يَنْوُونَ · اِرْوِ · قِ
+**Checkpoint:**
+
+1. Give أَنَا + مَاضٍ of وَعَى.
+   *Answer:* وَعَيْتُ
+2. Give أَنْتِ + مُضَارِع of وَقَى.
+   *Answer:* تَقِينَ
+3. Give هُمْ + مُضَارِع of نَوَى.
+   *Answer:* يَنْوُونَ
+4. Give the أَمْر of رَوَى for أَنْتَ.
+   *Answer:* اِرْوِ
+5. Give the أَمْر of وَقَى for أَنْتَ.
+   *Answer:* قِ. Both weak letters drop.
 
 ### Lesson 11 — مَدِينَةُ إِسْطَنْبُولَ (pp. 159–176) — مَزِيد doubled and weak verbs
 
@@ -311,7 +442,20 @@ Three things happen to the weak letter (pp. 130–131):
 
 **Focus drills:** 1, 2 (the big table on p. 165 is a ready-made practice sheet), 3, 5, 7, 8 and 16.
 
-**Checkpoint:** give the مُضَارِع of أَجَابَ, اسْتَرَاحَ and أَلْقَى; the أَمْر of اسْتَفَادَ and اشْتَرَى; and the root of اِتَّفَقَ. *Answers:* يُجِيبُ · يَسْتَرِيحُ · يُلْقِي · اِسْتَفِدْ · اِشْتَرِ · و ف ق
+**Checkpoint:**
+
+1. Give the مُضَارِع of أَجَابَ.
+   *Answer:* يُجِيبُ. A four-letter pattern starts with a damma.
+2. Give the مُضَارِع of اسْتَرَاحَ.
+   *Answer:* يَسْتَرِيحُ
+3. Give the مُضَارِع of أَلْقَى.
+   *Answer:* يُلْقِي
+4. Give the أَمْر of اسْتَفَادَ.
+   *Answer:* اِسْتَفِدْ
+5. Give the أَمْر of اشْتَرَى.
+   *Answer:* اِشْتَرِ
+6. What is the root of اِتَّفَقَ?
+   *Answer:* و ف ق. The و turned into ت and merged.
 
 ### Lesson 12 — مَنِ اشْتَرَى الْبِضَاعَةَ؟ (pp. 177–189) — the past passive
 
@@ -338,7 +482,20 @@ Five add-ons to the basic rule (p. 181):
 
 **Focus drills:** 1–7 in order; each one drills one add-on rule.
 
-**Checkpoint:** make passive: فَتَحَ, بَاعَ, تَكَلَّمَ, اسْتَقْبَلَ, سَامَحَ, أَعْطَى. *Answers:* فُتِحَ · بِيعَ · تُكُلِّمَ · اُسْتُقْبِلَ · سُومِحَ · أُعْطِيَ
+**Checkpoint:**
+
+1. Make فَتَحَ passive.
+   *Answer:* فُتِحَ
+2. Make بَاعَ passive.
+   *Answer:* بِيعَ. In an أَجْوَف verb the alif becomes ي.
+3. Make تَكَلَّمَ passive.
+   *Answer:* تُكُلِّمَ. A damma on the 2nd letter too.
+4. Make اسْتَقْبَلَ passive.
+   *Answer:* اُسْتُقْبِلَ. A damma on the 3rd letter too.
+5. Make سَامَحَ passive.
+   *Answer:* سُومِحَ. The extra alif becomes و.
+6. Make أَعْطَى passive.
+   *Answer:* أُعْطِيَ. The final alif becomes ي.
 
 ## Lessons 13–15: present passive, dictionaries, and the final review
 
@@ -357,7 +514,20 @@ Five add-ons to the basic rule (p. 181):
 
 **Focus drills:** 1, 2, 3, 4 and 6.
 
-**Checkpoint:** make passive: يَكْتُبُ, يَقُودُ, يُعْطِي, يَسْتَخْرِجُ, يُرْسِلُ, يَرْوِي. *Answers:* يُكْتَبُ · يُقَادُ · يُعْطَى · يُسْتَخْرَجُ · يُرْسَلُ · يُرْوَى
+**Checkpoint:**
+
+1. Make يَكْتُبُ passive.
+   *Answer:* يُكْتَبُ
+2. Make يَقُودُ passive.
+   *Answer:* يُقَادُ. In an أَجْوَف verb the middle becomes an alif.
+3. Make يُعْطِي passive.
+   *Answer:* يُعْطَى
+4. Make يَسْتَخْرِجُ passive.
+   *Answer:* يُسْتَخْرَجُ
+5. Make يُرْسِلُ passive.
+   *Answer:* يُرْسَلُ. It already starts with a damma, so only the fatha changes.
+6. Make يَرْوِي passive.
+   *Answer:* يُرْوَى
 
 ### Lesson 14 — طَرِيقُ الصَّالِحِينَ (pp. 201–214) — using a dictionary
 
@@ -383,7 +553,18 @@ Five add-ons to the basic rule (p. 181):
 
 **Focus drills:** 1, 3, 4, 7, 8 and 9.
 
-**Checkpoint:** give the root, the chapter in الْمُعْجَمُ الْوَسِيطُ, and the chapter in لِسَانُ الْعَرَبِ for اِسْتَقَامُوا, يَصِلُونَ, اِشْتَدَّ, يَنَامُونَ, قِفْ. *Answers:* ق و م (الْقَاف / الْمِيم) · و ص ل (الْوَاو / اللَّام) · ش د د (الشِّين / الدَّال) · ن و م (النُّون / الْمِيم) · و ق ف (الْوَاو / الْفَاء)
+**Checkpoint:**
+
+1. Give the root of اِسْتَقَامُوا, and its chapter in الْمُعْجَمُ الْوَسِيطُ and in لِسَانُ الْعَرَبِ.
+   *Answer:* ق و م · بَابُ الْقَافِ / بَابُ الْمِيمِ
+2. Give the root of يَصِلُونَ, and its two chapters.
+   *Answer:* و ص ل · بَابُ الْوَاوِ / بَابُ اللَّامِ
+3. Give the root of اِشْتَدَّ, and its two chapters.
+   *Answer:* ش د د · بَابُ الشِّينِ / بَابُ الدَّالِ
+4. Give the root of يَنَامُونَ, and its two chapters.
+   *Answer:* ن و م · بَابُ النُّونِ / بَابُ الْمِيمِ
+5. Give the root of قِفْ, and its two chapters.
+   *Answer:* و ق ف · بَابُ الْوَاوِ / بَابُ الْفَاءِ
 
 ### Lesson 15 — تَدْرِيبَاتٌ عَامَّةٌ (pp. 215–225) — general revision
 
@@ -403,6 +584,19 @@ Five add-ons to the basic rule (p. 181):
 | 21–22 | Dictionary order | Lesson 14 |
 
 The new words here are good extra examples: دَحْرَجَ (رُبَاعِيٌّ مُجَرَّد, like طَمْأَنَ), وَشَى يَشِي (لَفِيف مَفْرُوق, like وَقَى), and تَقَوَّى (تَفَعَّلَ + نَاقِص).
+
+**Checkpoint:**
+
+1. Give the وَزْن of دَحْرَجَ. Is it مُجَرَّد or مَزِيد?
+   *Answer:* فَعْلَلَ: a four-letter مُجَرَّد verb, like طَمْأَنَ.
+2. What type of verb is وَشَى?
+   *Answer:* لَفِيف مَفْرُوق, like وَقَى.
+3. Give هُوَ + مُضَارِع of وَشَى.
+   *Answer:* يَشِي
+4. Give the أَمْر of وَشَى for أَنْتَ.
+   *Answer:* شِ. Both weak letters drop, like قِ.
+5. Give the وَزْن of تَقَوَّى.
+   *Answer:* تَفَعَّلَ
 
 ### Final self-test
 
