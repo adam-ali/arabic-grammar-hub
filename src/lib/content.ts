@@ -158,7 +158,7 @@ function trimEnd(nodes: PhrasingContent[]): PhrasingContent[] {
 }
 
 function blockTexts(n: RootContent): string[] {
-  if (n.type === 'code' && (n.lang === 'tree' || n.lang === 'parse')) return [diagramText(n.value)];
+  if (n.type === 'code' && (n.lang === 'tree' || n.lang === 'parse' || n.lang === 'steps')) return [diagramText(n.value)];
   if (n.type === 'list') return n.children.map((li) => toString(li));
   if (n.type === 'table') return n.children.map((r) => r.children.map((c) => toString(c)).join('  ·  '));
   return [toString(n)];

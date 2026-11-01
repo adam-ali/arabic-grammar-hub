@@ -188,9 +188,69 @@ function parseEl(src: string): Element {
   ]);
 }
 
+/** "A → B → C": one verb changing step by step, one row per verb type. "{x}" marks the part that was added. */
+function stepsEl(src: string): Element {
+  const lines = src.split('\n').filter((l) => l.trim());
+  const caption = lines[0].includes(' | ') ? undefined : lines.shift();
+  const chip = (s: string, last: boolean) =>
+    el('span', { className: ['s-step', ...(last ? ['s-last'] : [])] }, [
+      el('span', { className: ['ar'], lang: 'ar', dir: 'rtl' },
+        s.split(/(\{[^}]+\})/).filter(Boolean).map((p) =>
+          p.startsWith('{') ? el('b', { className: ['ending'] }, [txt(p.slice(1, -1))]) : txt(p),
+        ),
+      ),
+    ]);
+  return el('figure', { className: ['diagram', 'steps'] }, [
+    ...(caption ? [el('figcaption', { className: ['s-cap'] }, [txt(caption.trim())])] : []),
+    ...lines.map((line) => {
+      const [label, chain = '', note] = line.split(/\s+\|\s+/);
+      const steps = chain.split(/\s*→\s*/);
+      const kids: ElementContent[] = [];
+      steps.forEach((st, i) => {
+        if (i) kids.push(el('i', { className: ['ph', 'ph-arrow-left', 's-arrow'], ariaHidden: 'true' }));
+        kids.push(chip(st.trim(), i === steps.length - 1));
+      });
+      return el('div', { className: ['s-row'] }, [
+        el('div', { className: ['s-label'] }, [txt(label.trim())]),
+        el('div', { className: ['s-chain'], dir: 'rtl' }, kids),
+        ...(note ? [el('div', { className: ['s-note'] }, [txt(note.trim())])] : []),
+      ]);
+    }),
+  ]);
+}
+
+const LETTERS = '\\u0621-\\u064A\\u064B-\\u0652\\u0670\\u0640\\u0671-\\u06D3';
+const TAIL = new RegExp(`[${LETTERS}]+$`);
+const HEAD = new RegExp(`^[${LETTERS}]+`);
+
+/**
+ * Bold on part of an Arabic word (كَتَبَ**ا**, **الْ**كِتَابُ) highlights that part.
+ * Keep the whole word in one span so its letters still join and read right to left.
+ */
+function partWords(tree: HRoot) {
+  visit(tree, 'element', (node: Element, index, parent) => {
+    if (!parent || index == null || node.tagName !== 'strong' || !/[\u0600-\u06FF]/.test(textOf(node))) return;
+    const prev = parent.children[index - 1];
+    const next = parent.children[index + 1];
+    const pre = prev?.type === 'text' ? (prev.value.match(TAIL)?.[0] ?? '') : '';
+    const post = next?.type === 'text' ? (next.value.match(HEAD)?.[0] ?? '') : '';
+    if (!pre && !post) return;
+    if (pre && prev?.type === 'text') prev.value = prev.value.slice(0, -pre.length);
+    if (post && next?.type === 'text') next.value = next.value.slice(post.length);
+    node.properties.className = ['ending'];
+    parent.children[index] = el('span', { className: ['ar', 'word'], lang: 'ar', dir: 'rtl' }, [
+      ...(pre ? [txt(pre)] : []),
+      node,
+      ...(post ? [txt(post)] : []),
+    ]);
+    return [SKIP, index + 1];
+  });
+}
+
 /** Style tables and examples, turn diagram code blocks into figures, and wrap Arabic. */
 function rehypeNotes(opts: RenderOpts) {
   return (tree: HRoot) => {
+    partWords(tree);
     visit(tree, 'element', (node: Element, index, parent) => {
       if (!parent || index == null) return;
       if (node.tagName === 'pre') {
@@ -199,6 +259,7 @@ function rehypeNotes(opts: RenderOpts) {
         const src = code ? textOf(code) : '';
         if (lang === 'language-tree') parent.children[index] = treeEl(src);
         else if (lang === 'language-parse') parent.children[index] = parseEl(src);
+        else if (lang === 'language-steps') parent.children[index] = stepsEl(src);
         else return;
         return SKIP;
       }
@@ -224,7 +285,7 @@ function rehypeNotes(opts: RenderOpts) {
     visit(tree, 'text', (node, index, parent) => {
       if (!parent || index == null) return;
       const p = parent as Element;
-      if (p.type === 'element' && (p.tagName === 'code' || (p.properties?.className as string[] | undefined)?.some((c) => c === 'ar' || c === 'term'))) return;
+      if (p.type === 'element' && (p.tagName === 'code' || (p.properties?.className as string[] | undefined)?.some((c) => c === 'ar' || c === 'term' || c === 'ending'))) return;
       const parts = segs(node.value);
       if (!parts.some((s) => s.ar)) return;
       const kids: ElementContent[] = parts.map((s) => (s.ar ? arSpan(s.t, !!opts.roles) : txt(s.t)));
@@ -267,6 +328,6 @@ export const renderText = (t: string, o: RenderOpts = {}) => renderInline([{ typ
 export const diagramText = (src: string) =>
   src
     .split('\n')
-    .map((l) => l.replace(/^\s*-\s+/, '').replace(/\{\w+\}/g, '').replace(/\s+\|\s+/g, ' · ').trim())
+    .map((l) => l.replace(/^\s*-\s+/, '').replace(/\{\w+\}/g, '').replace(/[{}]/g, '').replace(/\s+\|\s+/g, ' · ').trim())
     .filter(Boolean)
     .join(' · ');
