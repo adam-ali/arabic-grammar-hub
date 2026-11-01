@@ -51,6 +51,15 @@ A few conventions the build relies on:
   ```
   ````
 
+- A `steps` block shows a word changing step by step, one row per type: `label | A → B → C | note`, with `{…}` marking the part that was added. An optional first line without `|` is the caption:
+
+  ````markdown
+  ```steps
+  u: a ضَمَّة on the عَيْن | يَنْظُرُ → نْظُرْ → {اُ}نْظُرْ | the hamza takes u
+  ```
+  ````
+
+- Bold on part of an Arabic word highlights that part in red on the site, such as an ending (`كَتَبَ**ا**`) or a prefix (`**الْ**كِتَابُ`).
 - In the nahw notes, grammar terms such as فِعْل, فَاعِل, مَفْعُول بِهِ, مَرْفُوع and مَجْرُور are coloured by case automatically. The word list is in `src/lib/markdown.ts`.
 - English titles, search keywords and the "where the books meet" table live in `src/lib/meta.ts`.
 
