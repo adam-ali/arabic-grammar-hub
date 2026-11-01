@@ -25,60 +25,156 @@ revBtn.addEventListener('click', () =>
   }),
 );
 
-// — drills —
-for (const btn of page.querySelectorAll<HTMLButtonElement>('[data-drill]')) {
-  btn.addEventListener('click', () =>
-    update((p) => {
-      const x = lessonRec(p, id);
-      const k = btn.dataset.drill!;
-      const d = x.drills ?? [];
-      x.drills = d.includes(k) ? d.filter((z) => z !== k) : [...d, k];
-    }),
-  );
-}
-
-// — checkpoint —
+// — checkpoint: tap a question to open its answer, then mark it —
 const cp = page.querySelector<HTMLElement>('[data-checkpoint]');
 const cpN = Number(cp?.dataset.checkpoint ?? 0);
-cp?.querySelector('[data-reveal]')!.addEventListener('click', () => cp.classList.toggle('revealed'));
+const items = Array.from(cp?.querySelectorAll<HTMLElement>('.cp-item') ?? []);
+const setOpen = (li: HTMLElement, open: boolean) => {
+  li.classList.toggle('open', open);
+  li.querySelector('.cp-q')!.setAttribute('aria-expanded', String(open));
+};
+for (const li of items) li.querySelector('.cp-q')!.addEventListener('click', () => setOpen(li, !li.classList.contains('open')));
+cp?.querySelector('[data-reveal]')!.addEventListener('click', () => {
+  const show = !cp.classList.contains('revealed');
+  cp.classList.toggle('revealed', show);
+  items.forEach((li) => setOpen(li, show));
+});
+cp?.querySelector('[data-reset]')!.addEventListener('click', () => {
+  update((p) => {
+    delete lessonRec(p, id).marks;
+  });
+  cp.classList.remove('revealed');
+  items.forEach((li) => setOpen(li, false));
+  items[0]?.querySelector<HTMLElement>('.cp-q')!.focus();
+});
 for (const btn of cp?.querySelectorAll<HTMLButtonElement>('[data-mark]') ?? []) {
-  btn.addEventListener('click', () =>
+  btn.addEventListener('click', () => {
+    const i = Number(btn.dataset.mark);
+    const v = btn.dataset.v === '1';
+    let marked = false;
     update((p) => {
       const x = lessonRec(p, id);
-      const i = Number(btn.dataset.mark);
-      const v = btn.dataset.v === '1';
       x.marks = x.marks ?? {};
       if (x.marks[i] === v) delete x.marks[i];
-      else x.marks[i] = v;
+      else {
+        x.marks[i] = v;
+        marked = true;
+      }
       touchDay(p);
-    }),
-  );
+    });
+    // Move straight on to the next unmarked question.
+    if (marked && !cp!.classList.contains('revealed')) {
+      const mk = P.lessons[id]?.marks ?? {};
+      const next = items.find((_, j) => j > i && mk[j] === undefined);
+      if (next) {
+        setOpen(next, true);
+        next.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+      }
+    }
+  });
 }
 
 function render() {
   const x = P.lessons[id] ?? {};
   revBtn.setAttribute('aria-pressed', String(!!x.rev));
-  for (const btn of page.querySelectorAll<HTMLButtonElement>('[data-drill]')) {
-    const on = (x.drills ?? []).includes(btn.dataset.drill!);
-    btn.setAttribute('aria-pressed', String(on));
-    btn.querySelector('i')!.className = on ? 'ph-fill ph-check-square' : 'ph ph-square';
-  }
   if (cp) {
     const mk = x.marks ?? {};
     for (const btn of cp.querySelectorAll<HTMLButtonElement>('[data-mark]')) {
       btn.setAttribute('aria-pressed', String(mk[Number(btn.dataset.mark)] === (btn.dataset.v === '1')));
     }
+    items.forEach((li, j) => (li.dataset.mark = mk[j] === undefined ? '' : mk[j] ? 'right' : 'wrong'));
+    cp.querySelectorAll<HTMLElement>('.cp-meter span').forEach((d, j) => (d.dataset.mark = mk[j] === undefined ? '' : mk[j] ? 'right' : 'wrong'));
     const vals = Object.entries(mk).filter(([k]) => Number(k) < cpN).map(([, v]) => v);
     const right = vals.filter(Boolean).length;
     const label = cp.querySelector('[data-cp-score]')!;
     label.textContent = vals.length
-      ? `${right} of ${cpN} right` + (vals.length < cpN ? ` · ${cpN - vals.length} to mark` : '')
-      : `${cpN} ${cpN === 1 ? 'answer' : 'answers'} · not scored yet`;
+      ? `${right} of ${cpN} right` + (vals.length < cpN ? ` · ${cpN - vals.length} to go` : '')
+      : `${cpN} ${cpN === 1 ? 'question' : 'questions'} · not scored yet`;
     label.classList.toggle('low', vals.length === cpN && right / cpN < 0.6);
   }
 }
 render();
 onChange(render);
+
+// — colour key: tap a colour to spotlight it, or turn colours off —
+const legend = page.querySelector<HTMLElement>('[data-legend]');
+if (legend) {
+  const colorsBtn = legend.querySelector<HTMLButtonElement>('[data-colors-toggle]')!;
+  const syncColors = () => {
+    const off = document.documentElement.dataset.colors === 'off';
+    colorsBtn.setAttribute('aria-pressed', String(!off));
+    colorsBtn.querySelector('span')!.textContent = off ? 'Colours off' : 'Colours on';
+  };
+  colorsBtn.addEventListener('click', () => {
+    const off = document.documentElement.dataset.colors !== 'off';
+    if (off) document.documentElement.dataset.colors = 'off';
+    else delete document.documentElement.dataset.colors;
+    try {
+      localStorage.setItem('agh.colors', off ? 'off' : 'on');
+    } catch {
+      /* not saved */
+    }
+    syncColors();
+  });
+  syncColors();
+  for (const chip of legend.querySelectorAll<HTMLButtonElement>('[data-spot]')) {
+    chip.addEventListener('click', () => {
+      const on = page.dataset.spotlight !== chip.dataset.spot;
+      if (on) page.dataset.spotlight = chip.dataset.spot;
+      else delete page.dataset.spotlight;
+      for (const c of legend.querySelectorAll('[data-spot]')) c.setAttribute('aria-pressed', String(on && c === chip));
+    });
+  }
+}
+
+// — sentence diagrams: tap a word to see its إِعْرَاب —
+for (const fig of page.querySelectorAll<HTMLElement>('.parse')) {
+  const words = Array.from(fig.querySelectorAll<HTMLButtonElement>('.p-word'));
+  const lines = Array.from(fig.querySelectorAll<HTMLElement>('.p-details li'));
+  const all = fig.querySelector<HTMLButtonElement>('.p-all')!;
+  const pick = (i: number | null) => {
+    words.forEach((w, j) => w.setAttribute('aria-pressed', String(j === i)));
+    lines.forEach((li, j) => li.classList.toggle('on', j === i));
+    fig.classList.toggle('picked', i !== null);
+  };
+  words.forEach((w, i) =>
+    w.addEventListener('click', () => {
+      fig.classList.remove('all');
+      all.setAttribute('aria-pressed', 'false');
+      pick(w.getAttribute('aria-pressed') === 'true' ? null : i);
+    }),
+  );
+  all.addEventListener('click', () => {
+    const on = !fig.classList.contains('all');
+    fig.classList.toggle('all', on);
+    all.setAttribute('aria-pressed', String(on));
+    all.textContent = on ? 'Hide all' : 'Show all';
+    pick(null);
+  });
+}
+
+// — tables: cover the answers and tap a cell to check yourself —
+for (const wrap of page.querySelectorAll<HTMLElement>('.prose .table-scroll')) {
+  const table = wrap.querySelector('table')!;
+  const rows = table.tBodies[0]?.rows ?? [];
+  if (rows.length < 2 || (rows[0]?.cells.length ?? 0) < 2) continue;
+  const bar = document.createElement('div');
+  bar.className = 'tbl-bar';
+  bar.innerHTML = '<button type="button" class="tbl-cover" aria-pressed="false"><i class="ph ph-eye-closed"></i><span>Cover answers</span></button>';
+  wrap.before(bar);
+  const btn = bar.querySelector('button')!;
+  btn.addEventListener('click', () => {
+    const on = !table.classList.contains('covered');
+    table.classList.toggle('covered', on);
+    table.querySelectorAll('td.shown').forEach((td) => td.classList.remove('shown'));
+    btn.setAttribute('aria-pressed', String(on));
+    btn.querySelector('span')!.textContent = on ? 'Tap a cell to check · uncover' : 'Cover answers';
+  });
+  table.addEventListener('click', (e) => {
+    const td = (e.target as HTMLElement).closest('td');
+    if (td && table.classList.contains('covered') && td.cellIndex > 0) td.classList.toggle('shown');
+  });
+}
 
 // — sidebar —
 for (const btn of document.querySelectorAll('[data-sidebar-toggle]')) {

@@ -3,8 +3,8 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { toString } from 'mdast-util-to-string';
-import type { RootContent, PhrasingContent, Paragraph, List, Heading } from 'mdast';
-import { parseMd, renderNodes, renderInline, renderText } from './markdown';
+import type { RootContent, PhrasingContent, Paragraph, List, Heading, ListItem } from 'mdast';
+import { parseMd, renderNodes, renderInline, renderText, diagramText, ROLES, type RenderOpts, type Role } from './markdown';
 import { isArabicOnly, mostlyArabic } from './arabic';
 import { BOOK_META, LESSON_META, MATTER, MEET, type BookId, type BookMeta, type Kind } from './meta';
 import { href } from './urls';
@@ -21,10 +21,6 @@ export interface CheckItem {
 export interface Checkpoint {
   promptHtml?: string;
   items: CheckItem[];
-}
-export interface Drill {
-  key: string;
-  label: string;
 }
 export interface SearchField {
   label: string;
@@ -51,8 +47,9 @@ export interface Lesson {
   goal?: { label: string; html: string };
   bodyHtml: string;
   watch: { label: string; html: string }[];
-  drills?: { items: Drill[]; note?: string };
   checkpoint?: Checkpoint;
+  /** Colours used on the page, for the colour key. */
+  roles: Role[];
   links: string[];
   search: SearchField[];
 }
@@ -116,28 +113,52 @@ function splitAnswers(text: string): string[] {
   return t.split(/\s+·\s+/).map((a) => a.trim());
 }
 
-function parseCheckpoint(rest: PhrasingContent[]): Checkpoint {
+function parseCheckpoint(rest: PhrasingContent[], o: RenderOpts): Checkpoint {
   const i = rest.findIndex((c) => c.type === 'emphasis' && /^Answers:?$/.test(toString(c).trim()));
   const prompt = i < 0 ? rest : rest.slice(0, i);
   const answers = i < 0 ? [] : splitAnswers(toString({ type: 'paragraph', children: rest.slice(i + 1) }));
-  return { promptHtml: renderInline(prompt), items: answers.map((a) => ({ aHtml: renderText(a), aRtl: mostlyArabic(a) })) };
+  return { promptHtml: renderInline(prompt, o), items: answers.map((a) => ({ aHtml: renderText(a, o), aRtl: mostlyArabic(a) })) };
 }
 
-function parseDrills(text: string): { items: Drill[]; note?: string } {
-  const clean = text.replace(/\([^)]*\)/g, '').replace(/\bweek\s+\d+:?/gi, '');
-  const seen = new Set<string>();
-  const items: Drill[] = [];
-  for (const m of clean.matchAll(/(?<![\w])(\d+(?:\s*[–-]\s*\d+)?)(?![\w])/g)) {
-    const key = m[1].replace(/\s*[–-]\s*/, '–');
-    if (seen.has(key)) continue;
-    seen.add(key);
-    items.push({ key, label: `${key.includes('–') ? 'Drills' : 'Drill'} ${key}` });
+const isAnswerMark = (c: PhrasingContent) => c.type === 'emphasis' && /^Answer:?$/.test(toString(c).trim());
+
+/** "1. Question? *Answer:* answer" — one list item per question. */
+function parseQuestions(list: List, o: RenderOpts): Checkpoint {
+  return {
+    items: list.children.map((li: ListItem) => {
+      const [first, ...more] = li.children;
+      const kids = first?.type === 'paragraph' ? first.children : [];
+      const i = kids.findIndex(isAnswerMark);
+      if (i < 0) throw new Error(`Checkpoint question has no *Answer:*: "${toString(li).slice(0, 60)}"`);
+      const q = trimEnd(kids.slice(0, i));
+      const a = stripColon(kids.slice(i + 1));
+      const aText = toString({ type: 'paragraph', children: a });
+      return {
+        qHtml: renderInline(q, o),
+        qRtl: mostlyArabic(toString({ type: 'paragraph', children: q })),
+        aHtml: renderInline(a, o) + (more.length ? renderNodes(more, o) : ''),
+        aRtl: mostlyArabic(aText),
+      };
+    }),
+  };
+}
+
+function trimEnd(nodes: PhrasingContent[]): PhrasingContent[] {
+  const out = nodes.slice();
+  while (out.length) {
+    const last = out[out.length - 1];
+    if (last.type === 'break') out.pop();
+    else if (last.type === 'text' && !last.value.trim()) out.pop();
+    else if (last.type === 'text') {
+      out[out.length - 1] = { ...last, value: last.value.replace(/\s+$/, '') };
+      break;
+    } else break;
   }
-  const plain = /^[\d\s,–\-.]*(?:and\s+[\d–\-]+\.?)?$/.test(text.trim());
-  return { items, note: plain ? undefined : text.trim() };
+  return out;
 }
 
 function blockTexts(n: RootContent): string[] {
+  if (n.type === 'code' && (n.lang === 'tree' || n.lang === 'parse')) return [diagramText(n.value)];
   if (n.type === 'list') return n.children.map((li) => toString(li));
   if (n.type === 'table') return n.children.map((r) => r.children.map((c) => toString(c)).join('  ·  '));
   return [toString(n)];
@@ -147,28 +168,36 @@ interface Parsed {
   goal?: { label: string; html: string };
   bodyHtml: string;
   watch: { label: string; html: string }[];
-  drills?: { items: Drill[]; note?: string };
   checkpoint?: Checkpoint;
+  roles: Role[];
   search: SearchField[];
 }
 
-function parseBody(nodes: RootContent[]): Parsed {
+function parseBody(nodes: RootContent[], o: RenderOpts): Parsed {
   const body: RootContent[] = [];
   const watch: { label: string; nodes: RootContent[] }[] = [];
   const search: SearchField[] = [];
   let goal: Parsed['goal'];
-  let drills: Parsed['drills'];
   let checkpoint: Checkpoint | undefined;
-  let mode: 'body' | 'watch' = 'body';
+  let mode: 'body' | 'watch' | 'questions' = 'body';
 
   for (const node of nodes) {
+    // "**Checkpoint:**" on its own line, then a numbered list of questions.
+    if (mode === 'questions') {
+      mode = 'body';
+      if (node.type === 'list' && node.ordered) {
+        checkpoint = parseQuestions(node, o);
+        node.children.forEach((li) => search.push({ label: 'Checkpoint', text: toString(li).replace(/\s*Answer:\s*/, ' → ') }));
+        continue;
+      }
+    }
     const l = labelOf(node);
     if (l && /^(Rule|Goal)$/i.test(l.label)) {
       const rest = l.rest.slice();
       const first = rest[0];
       // "**Goal:** know when…" reads better as a sentence.
       if (first?.type === 'text') rest[0] = { ...first, value: first.value.charAt(0).toUpperCase() + first.value.slice(1) };
-      goal = { label: l.label, html: renderInline(rest) };
+      goal = { label: l.label, html: renderInline(rest, o) };
       search.push({ label: l.label, text: toString({ type: 'paragraph', children: l.rest }) });
       mode = 'body';
       continue;
@@ -178,13 +207,17 @@ function parseBody(nodes: RootContent[]): Parsed {
       mode = 'watch';
       continue;
     }
+    // Drill numbers stay in the markdown for readers of the plan, but not on the site.
     if (l && /^Focus drills$/i.test(l.label)) {
-      drills = parseDrills(toString({ type: 'paragraph', children: l.rest }));
       mode = 'body';
       continue;
     }
+    if (l && /^Checkpoint$/i.test(l.label) && !toString({ type: 'paragraph', children: l.rest }).trim()) {
+      mode = 'questions';
+      continue;
+    }
     if (l && /^Checkpoint$/i.test(l.label)) {
-      checkpoint = parseCheckpoint(l.rest);
+      checkpoint = parseCheckpoint(l.rest, o);
       search.push({ label: 'Checkpoint', text: toString({ type: 'paragraph', children: l.rest }).replace(/\s*Answers:\s*/, ' → ') });
       mode = 'body';
       continue;
@@ -196,9 +229,9 @@ function parseBody(nodes: RootContent[]): Parsed {
       const answers = splitAnswers(toString({ type: 'paragraph', children: node.children.slice(1) }));
       checkpoint = {
         items: prev.children.map((li, i) => ({
-          qHtml: renderNodes(li.children).replace(/^<p>|<\/p>$/g, ''),
+          qHtml: renderNodes(li.children, o).replace(/^<p>|<\/p>$/g, ''),
           qRtl: mostlyArabic(toString(li)),
-          aHtml: renderText(answers[i] ?? ''),
+          aHtml: renderText(answers[i] ?? '', o),
           aRtl: mostlyArabic(answers[i] ?? ''),
         })),
       };
@@ -213,12 +246,15 @@ function parseBody(nodes: RootContent[]): Parsed {
     }
   }
   watch.forEach((w) => w.nodes.forEach((n) => blockTexts(n).forEach((text) => search.push({ label: 'Watch out', text }))));
+  const bodyHtml = renderNodes(body, o);
+  const watchOut = watch.map((w) => ({ label: w.label, html: renderNodes(w.nodes, o) }));
+  const all = [goal?.html, bodyHtml, ...watchOut.map((w) => w.html), ...(checkpoint?.items.flatMap((i) => [i.qHtml, i.aHtml]) ?? [])].join('');
   return {
     goal,
-    bodyHtml: renderNodes(body),
-    watch: watch.map((w) => ({ label: w.label, html: renderNodes(w.nodes) })),
-    drills,
+    bodyHtml,
+    watch: watchOut,
     checkpoint,
+    roles: ROLES.filter((r) => all.includes(`term c-${r}`) || all.includes(`c-${r}"`)),
     search,
   };
 }
@@ -245,11 +281,12 @@ function loadBook(meta: BookMeta, lessons: Record<string, Lesson>): Book {
   const chapters = splitBy(top, 2).parts;
 
   const book: Book = { ...meta, url: href(`${meta.id}/`), sections: [], front: [], back: [], seq: [], lessonIds: [] };
+  const o: RenderOpts = { roles: meta.kind === 'nahw' };
 
   const matter = (kind: keyof typeof MATTER, en: string, nodes: RootContent[], where: 'front' | 'back', pages?: string) => {
     const m = MATTER[kind];
     const id = `${meta.id}-${m.slug}`;
-    const p = parseBody(nodes);
+    const p = parseBody(nodes, o);
     lessons[id] = {
       id, book: meta.id, slug: m.slug, url: href(`${meta.id}/${m.slug}/`), n: '',
       matter: where === 'front' ? 'Front matter' : 'Back matter',
@@ -267,7 +304,7 @@ function loadBook(meta: BookMeta, lessons: Record<string, Lesson>): Book {
     else if (/^Quick revision/i.test(title)) matter('revision', title.replace(/:.*/, ''), ch.nodes, 'back');
     else if (/^Lessons?\s/i.test(title)) {
       const { intro, parts } = splitBy(ch.nodes, 3);
-      const sec: Section = { title: title.replace(/^[^:]*:\s*/, ''), introHtml: renderNodes(intro), ids: [] };
+      const sec: Section = { title: title.replace(/^[^:]*:\s*/, ''), introHtml: renderNodes(intro, o), ids: [] };
       for (const part of parts) {
         const h = toString(part.heading);
         if (/self-test/i.test(h)) {
@@ -288,7 +325,7 @@ function loadBook(meta: BookMeta, lessons: Record<string, Lesson>): Book {
         const lm = LESSON_META[meta.id][n];
         if (!lm) throw new Error(`${meta.file}: no title for lesson ${n} in meta.ts`);
         const id = `${meta.id}-${n}`;
-        const p = parseBody(part.nodes);
+        const p = parseBody(part.nodes, o);
         const pages = pm ? dash(pm[1]) : undefined;
         const ar = meta.kind === 'nahw' ? left.split(/\s+—\s+/)[0] : lm.ar;
         const reading = meta.kind === 'sarf' && left ? left : undefined;

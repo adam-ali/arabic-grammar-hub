@@ -8,7 +8,7 @@ Free study notes for classical Arabic grammar, made to sit beside your textbooks
 | [Sarf Level 2 (Book 1) — Study Plan](sarf-level-2.md) | A 10-week plan for sound three-letter verbs: the past with pronouns, the مُضَارِع, the six أَبْوَاب, the أَمْر, longer verbs and dictionary lookup. |
 | [Sarf Level 3 (Book 2) — Study Plan](sarf-level-3.md) | A 21-week plan covering the verb scale, the ten forms, weak and doubled verbs, the passive and using a dictionary. Each lesson has a checkpoint with answers. |
 
-The website turns these notes into a study app: a library of the three books, one page per lesson, a "jump to" sheet, search in Arabic or English, a table of where the books meet, and a progress page with the week-by-week schedules. Progress (revised lessons, checkpoint scores, ticked weeks) is saved in your browser only, and you can export it to a file.
+The website turns these notes into a study app: a library of the three books, one page per lesson with questions to test yourself, diagrams and colour-coded grammar terms, a "jump to" sheet, search in Arabic or English, a table of where the books meet, and a progress page with the week-by-week schedules. Progress (revised lessons, checkpoint scores, ticked weeks) is saved in your browser only, and you can export it to a file.
 
 ## Read it online
 
@@ -27,7 +27,31 @@ npm run build    # type-check and build to dist/
 A few conventions the build relies on:
 
 - Lessons are `###` headings under `## Lessons …` sections: `### 26 — <Arabic title> (p. 126)` for nahw, `### Lesson 6 — <reading> (pp. 77–93) — <topic>` for sarf.
-- Labelled paragraphs get their own blocks on the lesson page: `**Rule:**` / `**Goal:**`, `**Edge cases:**` / `**Watch out for:**`, `**Focus drills:**` and `**Checkpoint:** … *Answers:* a · b · c`.
+- Labelled paragraphs get their own blocks on the lesson page: `**Rule:**` / `**Goal:**` and `**Edge cases:**` / `**Watch out for:**`. `**Focus drills:**` stays in the Markdown but isn't shown on the site.
+- A lesson's questions go under `**Checkpoint:**` as a numbered list, one question per item with its answer after `*Answer:*`:
+
+  ```markdown
+  **Checkpoint:**
+
+  1. What case is the فَاعِل?
+     *Answer:* مَرْفُوع.
+  ```
+
+- Diagrams are fenced code blocks. A `tree` block draws a tree: the first line is the root, `- ` lines are branches and `  - ` lines are leaves. A `parse` block draws a sentence you can tap word by word, one word per line. Both use `label | note`, and an optional `{raf}`, `{nasb}`, `{jarr}`, `{jazm}`, `{verb}` or `{harf}` sets the colour:
+
+  ````markdown
+  ```tree
+  الْإِعْرَابُ | the four cases
+  - الرَّفْعُ | sign: ضَمَّة {raf}
+    - اسْم | حَضَرَ مُحَمَّدٌ {raf}
+  ```
+
+  ```parse
+  الْمَرِيضُ | فَاعِلٌ | raf | فَاعِلٌ مَرْفُوعٌ وَعَلَامَةُ رَفْعِهِ الضَّمَّةُ
+  ```
+  ````
+
+- In the nahw notes, grammar terms such as فِعْل, فَاعِل, مَفْعُول بِهِ, مَرْفُوع and مَجْرُور are coloured by case automatically. The word list is in `src/lib/markdown.ts`.
 - English titles, search keywords and the "where the books meet" table live in `src/lib/meta.ts`.
 
 Pushing to `main` deploys the site with GitHub Actions (`.github/workflows/deploy.yml`).

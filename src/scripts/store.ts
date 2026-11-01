@@ -15,7 +15,6 @@ export interface LessonProgress {
   seen?: number;
   /** Checkpoint answer index → marked right (true) or wrong (false). */
   marks?: Record<number, boolean>;
-  drills?: string[];
 }
 export interface Progress {
   v: 1;

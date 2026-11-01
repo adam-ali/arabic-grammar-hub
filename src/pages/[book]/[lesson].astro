@@ -17,7 +17,9 @@ const lastN = LESSONS[b.lessonIds[b.lessonIds.length - 1]].n;
 const sectionLabel = l.matter ? l.matter : b.sections.length > 1 ? `Section ${(l.section ?? 0) + 1}` : b.short;
 const barTitle = l.matter ? b.short : `${b.short} · Lesson ${l.n}`;
 const cp = l.checkpoint;
-const perQ = !!cp?.items.some((i) => i.qHtml);
+const ROLE_LABEL: Record<string, string> = {
+  verb: 'فِعْل · verb', raf: 'رَفْع', nasb: 'نَصْب', jarr: 'جَرّ', jazm: 'جَزْم', harf: 'حَرْف · particle',
+};
 ---
 <Base title={l.matter ? `${b.short} · ${l.en}` : `${b.short} ${l.n} · ${l.en}`} barTitle={barTitle} screen="lesson" kind={b.kind} book={b.id} backHref={b.url}>
   <div class="lesson-shell">
@@ -51,6 +53,18 @@ const perQ = !!cp?.items.some((i) => i.qHtml);
           </div>
           <div class="fade-rule"></div>
 
+          {l.roles.length > 0 && (
+            <div class="legend-bar" data-legend>
+              <span class="lg-title">Colour key</span>
+              {l.roles.map((r) => (
+                <button class={`lg-chip c-${r}`} type="button" data-spot={r} aria-pressed="false" title="Highlight this colour">
+                  <span class="sw"></span><span set:html={arHtml(ROLE_LABEL[r])} />
+                </button>
+              ))}
+              <button class="lg-toggle" type="button" data-colors-toggle aria-pressed="true"><i class="ph ph-palette"></i><span>Colours on</span></button>
+            </div>
+          )}
+
           {l.goal && (
             <section class="l-sec">
               <div class="sec-label">{l.goal.label}</div>
@@ -72,38 +86,30 @@ const perQ = !!cp?.items.some((i) => i.qHtml);
             </aside>
           ))}
 
-          {l.drills && (
-            <section class="l-sec">
-              <div class="sec-label">Focus drills<span class="aside">In the textbook · tap when done</span></div>
-              <div class="chips">
-                {l.drills.items.map((d) => (
-                  <button class="drill" type="button" data-drill={d.key} aria-pressed="false">
-                    <i class="ph ph-square"></i>{d.label}
-                  </button>
-                ))}
-              </div>
-              {l.drills.note && <p class="drill-note" set:html={arHtml(l.drills.note)} />}
-            </section>
-          )}
-
           {cp && (
             <section class="checkpoint" data-checkpoint={cp.items.length}>
               <div class="cp-head">
                 <div class="sec-label"><i class="ph ph-seal-question"></i>{l.matter ? 'Self-test' : 'Checkpoint'}</div>
-                <span class="cp-score" data-cp-score>{cp.items.length} answers · not scored yet</span>
+                <span class="cp-score" data-cp-score>{cp.items.length} questions · not scored yet</span>
               </div>
+              <div class="cp-meter" aria-hidden="true">{cp.items.map(() => <span></span>)}</div>
               {cp.promptHtml && <p class="cp-prompt" set:html={cp.promptHtml} />}
-              <ol class={`cp-list${perQ ? '' : ' cp-only'}`}>
+              <ol class="cp-list">
                 {cp.items.map((it, i) => (
-                  <li>
-                    {it.qHtml && (
-                      <div class="cp-q"><span class="cp-n">{i + 1}</span><span dir={it.qRtl ? 'rtl' : undefined} set:html={it.qHtml} /></div>
-                    )}
+                  <li class="cp-item" data-i={i}>
+                    <button class="cp-q" type="button" aria-expanded="false">
+                      <span class="cp-n">{i + 1}</span>
+                      {it.qHtml
+                        ? <span class="cp-qt" dir={it.qRtl ? 'rtl' : undefined} set:html={it.qHtml} />
+                        : <span class="cp-qt">Answer {i + 1}</span>}
+                      <span class="cp-chev"><i class="ph ph-caret-down"></i></span>
+                    </button>
                     <div class="cp-a">
-                      <div>{!perQ && <span class="cp-n">{i + 1}</span>}<span class="cp-at" dir={it.aRtl ? 'rtl' : undefined} set:html={it.aHtml} /></div>
-                      <div style="display:flex;gap:6px">
-                        <button class="mark right" type="button" data-mark={i} data-v="1" aria-pressed="false" aria-label={`Answer ${i + 1}: I got it right`}><i class="ph ph-check"></i></button>
-                        <button class="mark wrong" type="button" data-mark={i} data-v="0" aria-pressed="false" aria-label={`Answer ${i + 1}: I got it wrong`}><i class="ph ph-x"></i></button>
+                      <div class="cp-at" dir={it.aRtl ? 'rtl' : undefined} set:html={it.aHtml} />
+                      <div class="cp-marks">
+                        <span>Did you get it?</span>
+                        <button class="mark right" type="button" data-mark={i} data-v="1" aria-pressed="false" aria-label={`Question ${i + 1}: I got it right`}><i class="ph ph-check"></i></button>
+                        <button class="mark wrong" type="button" data-mark={i} data-v="0" aria-pressed="false" aria-label={`Question ${i + 1}: I got it wrong`}><i class="ph ph-x"></i></button>
                       </div>
                     </div>
                   </li>
@@ -112,9 +118,10 @@ const perQ = !!cp?.items.some((i) => i.qHtml);
               <div class="cp-foot">
                 <button class="btn btn-primary" type="button" data-reveal>
                   <i class="ph ph-eye show-when-hidden"></i><i class="ph ph-eye-slash show-when-revealed"></i>
-                  <span class="show-when-hidden">Reveal answers</span><span class="show-when-revealed">Hide answers</span>
+                  <span class="show-when-hidden">Show all answers</span><span class="show-when-revealed">Hide all answers</span>
                 </button>
-                <span class="cp-hint">Mark each answer right or wrong to score yourself.</span>
+                <button class="btn btn-ghost" type="button" data-reset><i class="ph ph-arrow-counter-clockwise"></i>Start again</button>
+                <span class="cp-hint">Answer in your head, tap the question, then mark yourself.</span>
               </div>
             </section>
           )}
