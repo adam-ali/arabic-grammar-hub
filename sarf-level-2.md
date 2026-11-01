@@ -91,19 +91,19 @@ The plan runs for 10 weeks. Tick each week off when it's done. Page numbers are 
 | الضَّمِيرُ | Ending | كَتَبَ | What the ending is |
 | --- | --- | --- | --- |
 | هُوَ | — | كَتَبَ | hidden هُوَ (مُسْتَتِر) |
-| هُمَا | ـَا | كَتَبَا | أَلِفُ الْمُثَنَّى |
-| هُمْ | ـُوا | كَتَبُوا | وَاوُ الْجَمَاعَةِ |
-| هِيَ | ـَتْ | كَتَبَتْ | hidden هِيَ; the تْ only marks the feminine |
-| هُمَا (f) | ـَتَا | كَتَبَتَا | أَلِفُ الْمُثَنَّى |
-| هُنَّ | ـْنَ | كَتَبْنَ | نُونُ النِّسْوَةِ |
-| أَنْتَ | ـْتَ | كَتَبْتَ | تَاءُ الْفَاعِلِ |
-| أَنْتُمَا | ـْتُمَا | كَتَبْتُمَا |  |
-| أَنْتُمْ | ـْتُمْ | كَتَبْتُمْ |  |
-| أَنْتِ | ـْتِ | كَتَبْتِ |  |
-| أَنْتُمَا (f) | ـْتُمَا | كَتَبْتُمَا | same as masculine |
-| أَنْتُنَّ | ـْتُنَّ | كَتَبْتُنَّ |  |
-| أَنَا | ـْتُ | كَتَبْتُ | تَاءُ الْفَاعِلِ |
-| نَحْنُ | ـْنَا | كَتَبْنَا | نَا الْفَاعِلِينَ |
+| هُمَا | ـَا | كَتَبَ**ا** | أَلِفُ الْمُثَنَّى |
+| هُمْ | ـُوا | كَتَبُ**وا** | وَاوُ الْجَمَاعَةِ |
+| هِيَ | ـَتْ | كَتَبَ**تْ** | hidden هِيَ; the تْ only marks the feminine |
+| هُمَا (f) | ـَتَا | كَتَبَ**تَا** | أَلِفُ الْمُثَنَّى |
+| هُنَّ | ـْنَ | كَتَبْ**نَ** | نُونُ النِّسْوَةِ |
+| أَنْتَ | ـْتَ | كَتَبْ**تَ** | تَاءُ الْفَاعِلِ |
+| أَنْتُمَا | ـْتُمَا | كَتَبْ**تُمَا** |  |
+| أَنْتُمْ | ـْتُمْ | كَتَبْ**تُمْ** |  |
+| أَنْتِ | ـْتِ | كَتَبْ**تِ** |  |
+| أَنْتُمَا (f) | ـْتُمَا | كَتَبْ**تُمَا** | same as masculine |
+| أَنْتُنَّ | ـْتُنَّ | كَتَبْ**تُنَّ** |  |
+| أَنَا | ـْتُ | كَتَبْ**تُ** | تَاءُ الْفَاعِلِ |
+| نَحْنُ | ـْنَا | كَتَبْ**نَا** | نَا الْفَاعِلِينَ |
 
 **Watch out for:**
 
@@ -254,14 +254,21 @@ The plan runs for 10 weeks. Tick each week off when it's done. Page numbers are 
 
 **Goal:** make a command from any three-letter مُضَارِع, with the right first vowel.
 
-- **The recipe** (p. 82), starting from the مُضَارِع: (1) drop the حَرْفُ الْمُضَارَعَةِ, (2) the word now starts with a sukun, so add **هَمْزَةُ الْوَصْلِ**, (3) end with a sukun.
-- **Which vowel goes on the hamza?** Look at the middle vowel of the مُضَارِع:
+- **The recipe** (p. 82), starting from the مُضَارِع: (1) drop the حَرْفُ الْمُضَارَعَةِ, (2) the word now starts with a sukun on the فَاءُ الْفِعْلِ, so add **هَمْزَةُ الْوَصْلِ**, (3) end with a sukun on the لَامُ الْفِعْلِ.
+- **Which vowel goes on the hamza?** Look at the middle vowel of the مُضَارِع, the one on the عَيْنُ الْفِعْلِ:
 
-| Middle vowel | Hamza takes | Examples |
+| Middle vowel (عَيْنُ الْفِعْلِ) | Hamza takes | Examples |
 | --- | --- | --- |
 | u (يَنْظُرُ) | **u** | اُنْظُرْ، اُكْتُبْ، اُنْصُرْ |
 | a (يَفْتَحُ) | **i** | اِفْتَحْ، اِسْمَعْ، اِذْهَبْ |
 | i (يَنْزِلُ) | **i** | اِنْزِلْ، اِجْلِسْ، اِغْسِلْ |
+
+```steps
+From the مُضَارِع to the أَمْر: drop the حَرْفُ الْمُضَارَعَةِ, end in a sukun, then add the hamza
+u: a ضَمَّة on the عَيْن | يَنْظُرُ → نْظُرْ → {اُ}نْظُرْ | the hamza takes u
+a: a فَتْحَة on the عَيْن | يَفْتَحُ → فْتَحْ → {اِ}فْتَحْ | the hamza takes i
+i: a كَسْرَة on the عَيْن | يَنْزِلُ → نْزِلْ → {اِ}نْزِلْ | the hamza takes i
+```
 
 - **With pronouns** (p. 81): اُنْظُرْ · اُنْظُرِي · اُنْظُرَا · اُنْظُرُوا · اُنْظُرْنَ. With an object pronoun: اِسْمَعْنِي، اِسْمَعْهُ، اِسْمَعْهُمْ.
 
@@ -307,6 +314,16 @@ The plan runs for 10 weeks. Tick each week off when it's done. Page numbers are 
 
 - **It has a sukun:** add a hamza. For 4-letter verbs it takes a **fatha** (يُرْسِلُ → **أَرْسِلْ**); for 5- and 6-letter verbs a **kasra** (يَسْتَقْبِلُ → **اِسْتَقْبِلْ**, يَجْتَهِدُ → **اِجْتَهِدْ**).
 - **It has a vowel:** no hamza is needed: يُقَابِلُ → **قَابِلْ**, يَتَكَلَّمُ → **تَكَلَّمْ**, يُعَلِّمُ → **عَلِّمْ**.
+
+```steps
+From the مُضَارِع to the أَمْر: drop the حَرْفُ الْمُضَارَعَةِ and end in a sukun; add a hamza only if the word now starts with a sukun
+4 letters, starting with a hamza, like أَرْسَلَ | يُرْسِلُ → رْسِلْ → {أَ}رْسِلْ | starts with a sukun: add أَ (always pronounced)
+4 letters, doubled middle, like عَلَّمَ | يُعَلِّمُ → عَلِّمْ | starts with a vowel: no hamza
+4 letters, alif after the first, like قَابَلَ | يُقَابِلُ → قَابِلْ | starts with a vowel: no hamza
+5 letters, starting with ت, like تَكَلَّمَ | يَتَكَلَّمُ → تَكَلَّمْ | starts with a vowel: no hamza
+5 letters, like اِجْتَهَدَ | يَجْتَهِدُ → جْتَهِدْ → {اِ}جْتَهِدْ | starts with a sukun: add اِ
+6 letters, like اِسْتَقْبَلَ | يَسْتَقْبِلُ → سْتَقْبِلْ → {اِ}سْتَقْبِلْ | starts with a sukun: add اِ
+```
 
 **Watch out for:**
 

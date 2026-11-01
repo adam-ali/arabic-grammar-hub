@@ -75,7 +75,12 @@ One idea runs through the whole book: **النَّحْوُ** is the study of the
 - حَرْفٌ | particle · مِنْ، إِلَى، لَمْ {harf}
 ```
 
-- **Signs of an اسْم** (any one is enough): الْ at the start (الْكِتَابُ); تَنْوِين at the end (قَلَمٌ); تَاءٌ مَرْبُوطَةٌ at the end (فَاطِمَةُ); a حَرْفُ جَرّ before it (فِي الْبَيْتِ); or يَا before it (يَا أَحْمَدُ).
+- **Signs of an اسْم** (any one is enough):
+  1. الْ at the start: **الْ**كِتَابُ
+  2. تَنْوِين at the end: قَلَمٌ
+  3. تَاءٌ مَرْبُوطَةٌ at the end: فَاطِمَ**ةُ**
+  4. a حَرْفُ جَرّ before it: **فِي** الْبَيْتِ
+  5. يَا before it: **يَا** أَحْمَدُ
 - **The فِعْل** comes in three kinds: مَاضٍ (past: كَتَبَ), مُضَارِعٌ (present: يَكْتُبُ), أَمْرٌ (command: اُكْتُبْ).
 - **The حَرْف** is neither: مِنْ، إِلَى، عَنْ، لَا، لَمْ، لَنْ. It only carries meaning when used with other words.
 
