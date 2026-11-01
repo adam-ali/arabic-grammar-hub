@@ -1,0 +1,120 @@
+---
+import Base from '../layouts/Base.astro';
+import { BOOKS, LESSONS } from '../lib/content';
+import { href } from '../lib/urls';
+import { arHtml } from '../lib/arabic';
+
+const sched = BOOKS.filter((b) => b.schedule);
+---
+<Base title="Progress" barTitle="Progress" screen="dashboard" kind="sarf" backHref={href()}>
+  <main class="wrap">
+    <div class="page-head">
+      <div>
+        <div class="kicker">Progress</div>
+        <h1>Your study record</h1>
+      </div>
+      <div class="device-note"><i class="ph ph-device-mobile"></i>Saved on this device</div>
+    </div>
+
+    <div class="stat-grid">
+      <div class="card dash-card">
+        <div class="card-kicker">Lessons revised</div>
+        <div class="big-num"><b data-d="revised">0</b><span data-d="revisedOf"></span></div>
+        <div class="stack" data-d="stack">
+          {BOOKS.map((b) => <span class={`k-${b.kind}`} data-stack={b.id}></span>)}
+        </div>
+      </div>
+      <div class="card dash-card">
+        <div class="card-kicker">Study streak</div>
+        <div class="big-num"><i class="ph-fill ph-fire"></i><b data-d="streak">0</b><span>days in a row</span></div>
+        <div class="days" data-d="days"></div>
+      </div>
+      <div class="card dash-card">
+        <div class="card-kicker">This week</div>
+        <div class="wk-title" data-d="weekTitle"></div>
+        <div class="muted" style="font-size:13px" data-d="weekSub"></div>
+      </div>
+    </div>
+
+    <div class="two-col">
+      <div class="card dash-card" style="padding:18px;gap:10px" data-d="next"></div>
+      <div class="card dash-card" style="padding:18px;gap:4px">
+        <div style="display:flex;align-items:center;gap:10px">
+          <div class="card-kicker" style="color:var(--bad)">Weak lessons · below 60%</div>
+          <a class="btn btn-ghost" style="margin-left:auto;font-size:13px" data-d="queue" hidden><i class="ph ph-queue"></i><span></span></a>
+        </div>
+        <div data-d="weak"></div>
+      </div>
+    </div>
+
+    <div class="card dash-card" style="padding:18px;margin-top:12px;gap:12px">
+      <div class="card-kicker">Books</div>
+      <div class="book-rows">
+        {BOOKS.map((b) => (
+          <a class={`book-row k-${b.kind}`} href={b.url}>
+            <span>{b.title}</span>
+            <span class="bar" data-book-bar={b.id}><span></span></span>
+            <span class="p" data-book-pct={b.id}>0%</span>
+          </a>
+        ))}
+      </div>
+    </div>
+
+    <div id="schedule" class="k-sarf" style="scroll-margin-top:70px">
+      <div class="page-head" style="margin-top:36px;gap:12px">
+        <div>
+          <div class="kicker">Study schedule</div>
+          <h2 style="font-size:24px;margin:4px 0 0" data-sched-title></h2>
+        </div>
+        <div class="seg-tabs" role="tablist">
+          {sched.map((b) => (
+            <button type="button" role="tab" data-sched-tab={b.id} aria-selected="false">{b.short} · {b.schedule!.weeks} weeks</button>
+          ))}
+        </div>
+      </div>
+      <div class="legend">
+        <span><i class="ph-fill ph-check-circle"></i>Done</span>
+        <span><span class="lg-now"></span>This week</span>
+        <span><span class="lg-rev"></span>Review week</span>
+      </div>
+      {sched.map((b) => (
+        <div data-sched-panel={b.id} hidden>
+          <div class="toc-intro" style="margin-top:12px" set:html={b.schedule!.introHtml} />
+          <div class="weeks">
+            {b.schedule!.entries.map((e, i) => {
+              const z = e.lessonId ? LESSONS[e.lessonId] : undefined;
+              const multi = e.weeks.includes('–');
+              return (
+                <button type="button" class={`week${z ? '' : ' review'}`} data-week={i} aria-pressed="false">
+                  <i class="ph ph-circle"></i>
+                  <span>
+                    <span class="wl">{multi ? 'Weeks' : 'Week'} {e.weeks}{!z && ` · ${e.label}`}<em>· this week</em></span>
+                    {z ? (
+                      <>
+                        <span class="wt" set:html={arHtml(`Lesson ${z.n} · ${z.en}`)} />
+                        <span class="arf" lang="ar" dir="rtl">{z.ar}</span>
+                      </>
+                    ) : (
+                      <span class="wd" set:html={e.detailHtml} />
+                    )}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <div class="backup">
+      <i class="ph ph-device-mobile"></i>
+      <div><b>Progress is saved on this device</b><small>No account. Export a file to back up or move to another device.</small></div>
+      <button class="btn btn-secondary" type="button" data-export><i class="ph ph-download-simple"></i>Export</button>
+      <button class="btn btn-secondary" type="button" data-import><i class="ph ph-upload-simple"></i>Import</button>
+      <input type="file" accept="application/json" data-file hidden>
+    </div>
+  </main>
+</Base>
+<script>
+  import '../scripts/dashboard';
+</script>

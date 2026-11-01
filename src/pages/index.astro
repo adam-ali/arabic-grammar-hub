@@ -1,0 +1,116 @@
+---
+import Base from '../layouts/Base.astro';
+import BookCover from '../components/BookCover.astro';
+import { BOOKS, LESSONS } from '../lib/content';
+import { href } from '../lib/urls';
+import { arHtml } from '../lib/arabic';
+
+const total = BOOKS.reduce((n, b) => n + b.lessonIds.length, 0);
+const first = LESSONS['nahw-1'];
+const C = 2 * Math.PI * 21;
+---
+<Base title="Library" barTitle="Arabic Grammar Hub" screen="library" kind="nahw">
+  <main class="wrap">
+    <div class="page-head">
+      <div>
+        <div class="kicker">Library</div>
+        <h1>Three books, one study desk</h1>
+        <p data-lib-summary>{total} lessons</p>
+      </div>
+      <div class="device-note"><i class="ph ph-device-mobile"></i>Saved on this device · no account</div>
+    </div>
+
+    <a class="resume k-nahw" href={first.url} data-resume>
+      <i class="ph ph-bookmark-simple"></i>
+      <span class="resume-text">
+        <span class="kicker" data-resume-kicker>Start here</span>
+        <b data-resume-label set:html={arHtml(`Nahw · Lesson 1 · ${first.en}`)} />
+      </span>
+      <span class="arf" lang="ar" dir="rtl" data-resume-ar>{first.ar}</span>
+      <i class="ph ph-arrow-right"></i>
+    </a>
+
+    <div class="books">
+      {BOOKS.map((b) => (
+        <article class={`book-card k-${b.kind}`}>
+          <BookCover book={b} />
+          <div class="book-stat">
+            <svg class="ring" width="52" height="52" viewBox="0 0 52 52" aria-hidden="true">
+              <circle class="track" cx="26" cy="26" r="21" fill="none" stroke-width="4"></circle>
+              <circle class="val" cx="26" cy="26" r="21" fill="none" stroke-width="4" stroke-linecap="round"
+                stroke-dasharray={`0 ${C.toFixed(1)}`} transform="rotate(-90 26 26)" data-ring={b.id}></circle>
+              <text x="26" y="30" text-anchor="middle" data-book-pct={b.id}>0%</text>
+            </svg>
+            <div style="flex:1;min-width:0">
+              <div class="name">{b.title}</div>
+              <div class="meta" data-book-meta={b.id}>{b.lessonIds.length} lessons</div>
+            </div>
+          </div>
+          <div class="actions">
+            <a class="btn btn-primary grow" href={LESSONS[b.lessonIds[0]].url} data-continue={b.id}>
+              <i class="ph ph-play" style="font-size:15px"></i><span class="ellip">Continue · <span data-continue-label>Lesson {LESSONS[b.lessonIds[0]].n}</span></span>
+            </a>
+            <a class="btn btn-secondary" href={b.url}><i class="ph ph-list-bullets" style="font-size:16px"></i>Contents</a>
+          </div>
+        </article>
+      ))}
+    </div>
+
+    <div class="link-cards">
+      <a class="card link-card" href={href('meet/')}>
+        <i class="ph ph-intersect"></i>
+        <span><b>Where the books meet</b><small>Shared topics across nahw, Sarf L2 and Sarf L3</small></span>
+        <i class="ph ph-caret-right"></i>
+      </a>
+      <a class="card link-card" href={href('progress/')}>
+        <i class="ph ph-chart-line-up"></i>
+        <span><b>Progress and schedule</b><small data-dash-sub>Revision record and week-by-week plans</small></span>
+        <i class="ph ph-caret-right"></i>
+      </a>
+    </div>
+
+    <p class="site-foot">
+      A companion to the textbooks, not a replacement: page numbers are the ones printed in each book.
+      Notes licensed <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> ·
+      <a href="https://github.com/adam-ali/arabic-grammar-hub">Source and corrections on GitHub</a>
+    </p>
+  </main>
+</Base>
+<script>
+  import { BOOKS, BK, L, P, onChange, status, bookStats, contId, curEntry, firstWeek, streak, ago, kindOf } from '../scripts/store';
+  import { arHtml, esc } from '../lib/arabic';
+
+  const C = 2 * Math.PI * 21;
+  function render() {
+    const all = BOOKS.flatMap((b) => b.lessonIds);
+    const rv = all.filter((id) => status(id) === 'revised').length;
+    const s = streak();
+    document.querySelector('[data-lib-summary]')!.textContent = `${all.length} lessons · ${rv} revised · ${s}-day streak`;
+
+    const bid = P.lastBook && BK[P.lastBook] ? P.lastBook : 'nahw';
+    const id = contId(bid);
+    const l = L[id];
+    const seen = P.lessons[id]?.seen;
+    const card = document.querySelector<HTMLAnchorElement>('[data-resume]')!;
+    card.href = l.url;
+    card.className = `resume k-${kindOf(id)}`;
+    card.querySelector('[data-resume-kicker]')!.textContent = P.lastBook
+      ? `Continue where you left off · ${seen ? ago(seen) : 'not started'}`
+      : 'Start here';
+    card.querySelector('[data-resume-label]')!.innerHTML = arHtml(`${BK[l.b].short} · ${l.m ? l.en : `Lesson ${l.n} · ${l.en}`}`);
+    card.querySelector('[data-resume-ar]')!.textContent = l.ar;
+
+    for (const b of BOOKS) {
+      const st = bookStats(b.id);
+      document.querySelector(`[data-ring="${b.id}"]`)!.setAttribute('stroke-dasharray', `${((st.pct / 100) * C).toFixed(1)} ${C.toFixed(1)}`);
+      const wk = b.schedule.length ? ` · week ${firstWeek(b.schedule[curEntry(b.id)].weeks)} of ${b.weeks}` : '';
+      document.querySelector(`[data-book-meta="${b.id}"]`)!.textContent = `${st.rv} of ${st.n} lessons revised${wk}`;
+    }
+    const sb = P.last.sarf3 ? 'sarf3' : 'sarf2';
+    document.querySelector('[data-dash-sub]')!.innerHTML = esc(
+      `${s}-day streak · ${BK[sb].short} week ${firstWeek(BK[sb].schedule[curEntry(sb)].weeks)} of ${BK[sb].weeks}`,
+    );
+  }
+  render();
+  onChange(render);
+</script>

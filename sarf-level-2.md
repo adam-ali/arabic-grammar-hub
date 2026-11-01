@@ -1,12 +1,6 @@
----
-layout: doc
-title: "Sarf Level 2 (Book 1) — Study Plan"
-description: "A 10-week, lesson-by-lesson study plan for sarf Book 1 (Level 2): sound three-letter verbs."
----
-
 # Sarf Level 2 (Book 1) — Study Plan
 
-Part of the [Arabic Grammar Hub](./). The next book is the [Sarf Level 3 study plan](sarf-level-3.html); the companion nahw reference is [Nahw — Lesson Summaries & Rules](nahw.html).
+Part of the [Arabic Grammar Hub](https://adam-ali.github.io/arabic-grammar-hub/). The next book is the [Sarf Level 3 study plan](sarf-level-3.md); the companion nahw reference is [Nahw — Lesson Summaries & Rules](nahw.md).
 
 ## How to use this plan
 

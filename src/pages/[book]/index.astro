@@ -1,0 +1,34 @@
+---
+import Base from '../../layouts/Base.astro';
+import LessonGroups from '../../components/LessonGroups.astro';
+import { BOOKS, LESSONS, type Book } from '../../lib/content';
+import { href } from '../../lib/urls';
+
+export function getStaticPaths() {
+  return BOOKS.map((b) => ({ params: { book: b.id }, props: { b } }));
+}
+const { b } = Astro.props as { b: Book };
+const first = LESSONS[b.lessonIds[0]];
+---
+<Base title={b.title} barTitle={b.title} screen="toc" kind={b.kind} book={b.id} backHref={href()}>
+  <main class="wrap narrow">
+    <div class="toc-head">
+      <div>
+        <div class="kicker book">{b.kicker}</div>
+        <h1>{b.title}</h1>
+        <div class="muted" style="font-size:14px">{b.sub}</div>
+      </div>
+      <span class="big arf" lang="ar" dir="rtl">{b.ar}</span>
+    </div>
+    <div class="progress-row">
+      <div class="bar" data-book-bar={b.id}><span></span></div>
+      <span data-book-pct={b.id} data-format="long">0%</span>
+      {b.schedule && <span class="tag book" data-week-tag={b.id}><i class="ph ph-calendar-blank"></i><span>{b.schedule.weeks}-week plan</span></span>}
+    </div>
+    <div class="actions" style="margin-top:16px">
+      <a class="btn btn-primary" href={first.url} data-continue={b.id}><i class="ph ph-play"></i>Continue · <span data-continue-label>Lesson {first.n}</span></a>
+      {b.schedule && <a class="btn btn-secondary" href={`${href('progress/')}?book=${b.id}#schedule`}><i class="ph ph-calendar-check"></i>Study schedule</a>}
+    </div>
+    <LessonGroups book={b.id} variant="toc" />
+  </main>
+</Base>

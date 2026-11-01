@@ -1,0 +1,202 @@
+---
+import Base from '../../layouts/Base.astro';
+import LessonGroups from '../../components/LessonGroups.astro';
+import { BOOK, BOOKS, LESSONS, type Lesson } from '../../lib/content';
+import { arHtml } from '../../lib/arabic';
+
+export function getStaticPaths() {
+  return Object.values(LESSONS).map((l) => ({ params: { book: l.book, lesson: l.slug }, props: { l } }));
+}
+const { l } = Astro.props as { l: Lesson };
+const b = BOOK[l.book];
+const ix = b.seq.indexOf(l.id);
+const prev = b.seq[ix - 1] ? LESSONS[b.seq[ix - 1]] : undefined;
+const next = b.seq[ix + 1] ? LESSONS[b.seq[ix + 1]] : undefined;
+const short = (x: Lesson) => (x.matter ? x.en : `${x.n} · ${x.en}`);
+const lastN = LESSONS[b.lessonIds[b.lessonIds.length - 1]].n;
+const sectionLabel = l.matter ? l.matter : b.sections.length > 1 ? `Section ${(l.section ?? 0) + 1}` : b.short;
+const barTitle = l.matter ? b.short : `${b.short} · Lesson ${l.n}`;
+const cp = l.checkpoint;
+const perQ = !!cp?.items.some((i) => i.qHtml);
+---
+<Base title={l.matter ? `${b.short} · ${l.en}` : `${b.short} ${l.n} · ${l.en}`} barTitle={barTitle} screen="lesson" kind={b.kind} book={b.id} backHref={b.url}>
+  <div class="lesson-shell">
+    <aside class="sidebar wide-only" aria-label="Contents">
+      <div class="side-top">
+        <span class="side-swatch"></span>
+        <a href={b.url}>{b.title}</a>
+        <span class="pct" data-book-pct={b.id}>0%</span>
+        <button class="btn btn-icon" type="button" data-sidebar-toggle aria-label="Hide contents"><i class="ph ph-sidebar-simple" style="font-size:18px"></i></button>
+      </div>
+      <LessonGroups book={b.id} variant="mini" current={l.id} />
+    </aside>
+
+    <main class="lesson-main" id="main">
+      <button class="btn btn-icon side-open" type="button" data-sidebar-toggle aria-label="Show contents"><i class="ph ph-sidebar-simple" style="font-size:18px"></i></button>
+      <div class="lesson-pad">
+        <article class="page" data-lesson={l.id}>
+          <div class="l-meta">
+            <span class="kicker">{b.short} · {sectionLabel}</span>
+            <span class="spacer"></span>
+            {l.reading && l.reading !== l.ar && <span><i class="ph ph-book-bookmark"></i>Reading · <span class="ar" lang="ar" dir="rtl">{l.reading}</span></span>}
+            <span><i class="ph ph-book-open"></i>{l.pages ?? 'Reference'}</span>
+          </div>
+          <div class="l-title">
+            <span class="l-num">{l.matter ? '§' : l.n}</span>
+            <h1 class="arf" lang="ar" dir="rtl">{l.ar}</h1>
+          </div>
+          <div class="l-sub">
+            <span class="en" set:html={arHtml(l.en)} />
+            {l.tag && <span class="tag book"><small>Verb type</small><span class="arf" lang="ar" dir="rtl">{l.tag}</span></span>}
+          </div>
+          <div class="fade-rule"></div>
+
+          {l.goal && (
+            <section class="l-sec">
+              <div class="sec-label">{l.goal.label}</div>
+              <p class="goal" set:html={l.goal.html} />
+            </section>
+          )}
+
+          {l.bodyHtml && (
+            <section class="l-sec">
+              {!l.matter && <div class="sec-label">{l.goal?.label === 'Goal' ? 'Key rules' : 'Notes'}</div>}
+              <div class="prose" set:html={l.bodyHtml} />
+            </section>
+          )}
+
+          {l.watch.map((w) => (
+            <aside class="watch">
+              <div class="watch-label"><i class="ph-fill ph-warning"></i>{w.label}</div>
+              <div class="prose" set:html={w.html} />
+            </aside>
+          ))}
+
+          {l.drills && (
+            <section class="l-sec">
+              <div class="sec-label">Focus drills<span class="aside">In the textbook · tap when done</span></div>
+              <div class="chips">
+                {l.drills.items.map((d) => (
+                  <button class="drill" type="button" data-drill={d.key} aria-pressed="false">
+                    <i class="ph ph-square"></i>{d.label}
+                  </button>
+                ))}
+              </div>
+              {l.drills.note && <p class="drill-note" set:html={arHtml(l.drills.note)} />}
+            </section>
+          )}
+
+          {cp && (
+            <section class="checkpoint" data-checkpoint={cp.items.length}>
+              <div class="cp-head">
+                <div class="sec-label"><i class="ph ph-seal-question"></i>{l.matter ? 'Self-test' : 'Checkpoint'}</div>
+                <span class="cp-score" data-cp-score>{cp.items.length} answers · not scored yet</span>
+              </div>
+              {cp.promptHtml && <p class="cp-prompt" set:html={cp.promptHtml} />}
+              <ol class={`cp-list${perQ ? '' : ' cp-only'}`}>
+                {cp.items.map((it, i) => (
+                  <li>
+                    {it.qHtml && (
+                      <div class="cp-q"><span class="cp-n">{i + 1}</span><span dir={it.qRtl ? 'rtl' : undefined} set:html={it.qHtml} /></div>
+                    )}
+                    <div class="cp-a">
+                      <div>{!perQ && <span class="cp-n">{i + 1}</span>}<span class="cp-at" dir={it.aRtl ? 'rtl' : undefined} set:html={it.aHtml} /></div>
+                      <div style="display:flex;gap:6px">
+                        <button class="mark right" type="button" data-mark={i} data-v="1" aria-pressed="false" aria-label={`Answer ${i + 1}: I got it right`}><i class="ph ph-check"></i></button>
+                        <button class="mark wrong" type="button" data-mark={i} data-v="0" aria-pressed="false" aria-label={`Answer ${i + 1}: I got it wrong`}><i class="ph ph-x"></i></button>
+                      </div>
+                    </div>
+                  </li>
+                ))}
+              </ol>
+              <div class="cp-foot">
+                <button class="btn btn-primary" type="button" data-reveal>
+                  <i class="ph ph-eye show-when-hidden"></i><i class="ph ph-eye-slash show-when-revealed"></i>
+                  <span class="show-when-hidden">Reveal answers</span><span class="show-when-revealed">Hide answers</span>
+                </button>
+                <span class="cp-hint">Mark each answer right or wrong to score yourself.</span>
+              </div>
+            </section>
+          )}
+
+          {l.links.length > 0 && (
+            <section class="l-sec">
+              <div class="sec-label">See also</div>
+              <div class="chips">
+                {l.links.map((id) => {
+                  const t = LESSONS[id];
+                  const tb = BOOK[t.book];
+                  return (
+                    <a class={`xlink k-${tb.kind}`} href={t.url}>
+                      <i class="ph ph-arrow-bend-up-right"></i>{tb.short} · Lesson {t.n}<span class="arf" lang="ar" dir="rtl">{t.ar}</span>
+                    </a>
+                  );
+                })}
+              </div>
+            </section>
+          )}
+
+          <div class="revise-row">
+            <button class="revise" type="button" data-revised aria-pressed="false">
+              <i class="ph ph-circle off"></i><i class="ph-fill ph-check-circle on"></i>
+              <span class="off">Mark as revised</span><span class="on">Revised</span>
+            </button>
+            <span class="seen-label" data-seen-label>First visit</span>
+          </div>
+
+          <footer class="folio">
+            <span>{b.short} · {l.matter ? l.en : `Lesson ${l.n}`}</span>
+            <span class="fade-rule"></span>
+            <b>— {l.folio ?? '—'} —</b>
+          </footer>
+        </article>
+      </div>
+    </main>
+  </div>
+
+  <nav class="pager" aria-label="Lesson navigation">
+    <div class="bar" data-book-bar={b.id}><span></span></div>
+    <div class="pager-inner">
+      <a class={`pg prev${prev ? '' : ' off'}`} href={prev?.url ?? '#'} data-prev aria-disabled={prev ? undefined : 'true'}>
+        <small><i class="ph ph-arrow-left"></i>Previous</small>
+        <span set:html={prev ? arHtml(short(prev)) : 'Start of book'} />
+      </a>
+      <button class="pg-mid" type="button" data-open-sheet aria-haspopup="dialog">
+        <small>{sectionLabel}<i class="ph ph-caret-up"></i></small>
+        <b>{l.matter ? b.short : `Lesson ${l.n} of ${lastN}`}</b>
+      </button>
+      <a class={`pg next${next ? '' : ' off'}`} href={next?.url ?? '#'} data-next aria-disabled={next ? undefined : 'true'}>
+        <small>Next<i class="ph ph-arrow-right"></i></small>
+        <span set:html={next ? arHtml(short(next)) : 'End of book'} />
+      </a>
+    </div>
+  </nav>
+
+  <dialog class="sheet" id="jump" aria-label="Jump to">
+    <div class="sheet-top">
+      <div class="grip"></div>
+      <div class="sheet-title">
+        <b>Jump to</b><small>a book, section or lesson</small>
+        <button class="btn btn-icon" type="button" data-close-sheet aria-label="Close"><i class="ph ph-x" style="font-size:18px"></i></button>
+      </div>
+      <div class="sheet-tabs" role="tablist">
+        {BOOKS.map((x) => (
+          <button class={`sheet-tab k-${x.kind}`} type="button" role="tab" data-tab={x.id} aria-selected={x.id === b.id ? 'true' : 'false'}>
+            <b><span class="sq"></span>{x.short}</b>
+            <span class="bar" data-book-bar={x.id}><span></span></span>
+          </button>
+        ))}
+      </div>
+    </div>
+    <div class="sheet-body">
+      {BOOKS.map((x) => (
+        <div class={`k-${x.kind}`} data-panel={x.id} role="tabpanel" hidden={x.id !== b.id}>
+          <LessonGroups book={x.id} variant="mini" current={l.id} showAr showCount />
+        </div>
+      ))}
+    </div>
+  </dialog>
+</Base>
+<script>
+  import '../../scripts/lesson';
+</script>

@@ -1,0 +1,16 @@
+---
+import type { Book } from '../lib/content';
+interface Props { book: Book }
+const { book: b } = Astro.props;
+---
+<a class="cover" href={b.url} aria-label={`${b.title}: contents`}>
+  <span class="spine"></span>
+  <span class="spine-line"></span>
+  <span class="frame"></span>
+  <span class="frame2"></span>
+  <span class="face">
+    <span class="k">{b.kicker}</span>
+    <span class="t arf" lang="ar" dir="rtl">{b.ar}</span>
+    <span class="s arf" lang="ar" dir="rtl">{b.arSub}</span>
+  </span>
+</a>
