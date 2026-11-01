@@ -447,14 +447,18 @@ button { font: inherit; color: inherit; }
 .p-details li.on, .parse.all .p-details li { display: block; }
 .p-details li.on { animation: cp-in .18s ease-out; }
 
-/* — tables you can cover to test yourself — */
-.tbl-bar { display: flex; justify-content: flex-end; margin: 18px 0 -12px; }
-.tbl-cover { display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 10px; border-radius: 999px; border: 1px solid var(--hair); background: transparent; color: var(--muted); font-size: 12px; cursor: pointer; }
+/* — tables you can cover column by column to test yourself — */
+.tbl-bar { display: flex; align-items: center; justify-content: flex-end; gap: 10px; margin: 18px 0 -12px; }
+.tbl-hint { font-size: 12px; color: var(--muted); line-height: 1.5; }
+.tbl-cover { flex: none; display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 10px; border-radius: 999px; border: 1px solid var(--hair); background: transparent; color: var(--muted); font-size: 12px; cursor: pointer; }
 .tbl-cover[aria-pressed="true"] { color: var(--book-ink); border-color: var(--book-line); background: var(--book-tint); }
-.table.covered td:not(:first-child) { cursor: pointer; }
-.table.covered td:not(:first-child):not(.shown) > * , .table.covered td:not(:first-child):not(.shown) { color: transparent; }
-.table.covered td:not(:first-child):not(.shown) .term { color: transparent; }
-.table.covered td:not(:first-child):not(.shown) {
+.table.covered th { cursor: pointer; user-select: none; }
+.table.covered th::after { content: " \25CB"; font-size: 10px; }
+.table.covered th.col-covered { color: var(--book-ink); }
+.table.covered th.col-covered::after { content: " \25CF"; }
+.table.covered td.cov { cursor: pointer; }
+.table.covered td.cov:not(.shown), .table.covered td.cov:not(.shown) * { color: transparent !important; }
+.table.covered td.cov:not(.shown) {
   background-image: linear-gradient(color-mix(in srgb, var(--book) 14%, transparent), color-mix(in srgb, var(--book) 14%, transparent));
   background-clip: content-box; border-radius: 6px;
 }
@@ -680,3 +684,5 @@ button { font: inherit; color: inherit; }
 @container (max-width: 520px) {
   .s-row { grid-template-columns: 1fr; grid-template-areas: "label" "chain" "note"; }
 }
+
+.prose .table .nw { white-space: nowrap; }

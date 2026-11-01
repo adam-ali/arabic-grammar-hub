@@ -230,19 +230,27 @@ const HEAD = new RegExp(`^[${LETTERS}]+`);
 function partWords(tree: HRoot) {
   visit(tree, 'element', (node: Element, index, parent) => {
     if (!parent || index == null || node.tagName !== 'strong' || !/[\u0600-\u06FF]/.test(textOf(node))) return;
-    const prev = parent.children[index - 1];
-    const next = parent.children[index + 1];
+    const kids = parent.children;
+    const prev = kids[index - 1];
+    const next = kids[index + 1];
     const pre = prev?.type === 'text' ? (prev.value.match(TAIL)?.[0] ?? '') : '';
     const post = next?.type === 'text' ? (next.value.match(HEAD)?.[0] ?? '') : '';
-    if (!pre && !post) return;
+    // A second bold part in the same word (تَ**فَا**عَلَ): join the word already built.
+    let j = index - 1;
+    while (j >= 0 && kids[j].type === 'text' && (kids[j] as { value: string }).value === '') j--;
+    const host = !pre && j >= 0 ? kids[j] : undefined;
+    const joinHost = host?.type === 'element' && ((host.properties.className as string[] | undefined) ?? []).includes('word');
+    if (!pre && !post && !joinHost) return;
     if (pre && prev?.type === 'text') prev.value = prev.value.slice(0, -pre.length);
     if (post && next?.type === 'text') next.value = next.value.slice(post.length);
     node.properties.className = ['ending'];
-    parent.children[index] = el('span', { className: ['ar', 'word'], lang: 'ar', dir: 'rtl' }, [
-      ...(pre ? [txt(pre)] : []),
-      node,
-      ...(post ? [txt(post)] : []),
-    ]);
+    const parts: ElementContent[] = [...(pre ? [txt(pre)] : []), node, ...(post ? [txt(post)] : [])];
+    if (joinHost && host?.type === 'element') {
+      host.children.push(...parts);
+      kids.splice(j + 1, index - j);
+      return [SKIP, j + 1];
+    }
+    kids[index] = el('span', { className: ['ar', 'word'], lang: 'ar', dir: 'rtl' }, parts);
     return [SKIP, index + 1];
   });
 }
@@ -291,6 +299,14 @@ function rehypeNotes(opts: RenderOpts) {
       const kids: ElementContent[] = parts.map((s) => (s.ar ? arSpan(s.t, !!opts.roles) : txt(s.t)));
       p.children.splice(index, 1, ...kids);
       return index + kids.length;
+    });
+    // Keep short Arabic phrases in table cells on one line (كَتَبَ يَكْتُبُ).
+    visit(tree, 'element', (td: Element) => {
+      if (td.tagName !== 'td') return;
+      visit(td, 'element', (sp: Element) => {
+        const cls = (sp.properties.className as string[] | undefined) ?? [];
+        if (cls.includes('ar') && textOf(sp).length <= 24) sp.properties.className = [...cls, 'nw'];
+      });
     });
   };
 }

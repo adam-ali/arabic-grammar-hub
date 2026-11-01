@@ -153,26 +153,62 @@ for (const fig of page.querySelectorAll<HTMLElement>('.parse')) {
   });
 }
 
-// — tables: cover the answers and tap a cell to check yourself —
+// — tables: test yourself by covering columns, then tap a cell to check it —
 for (const wrap of page.querySelectorAll<HTMLElement>('.prose .table-scroll')) {
   const table = wrap.querySelector('table')!;
-  const rows = table.tBodies[0]?.rows ?? [];
-  if (rows.length < 2 || (rows[0]?.cells.length ?? 0) < 2) continue;
+  const rows = Array.from(table.tBodies[0]?.rows ?? []);
+  const heads = Array.from(table.tHead?.rows[0]?.cells ?? []);
+  if (rows.length < 2 || heads.length < 2) continue;
   const bar = document.createElement('div');
   bar.className = 'tbl-bar';
-  bar.innerHTML = '<button type="button" class="tbl-cover" aria-pressed="false"><i class="ph ph-eye-closed"></i><span>Cover answers</span></button>';
+  bar.innerHTML =
+    '<span class="tbl-hint" hidden>Tap a heading to cover or uncover its column, then tap a cell to check it.</span>' +
+    '<button type="button" class="tbl-cover" aria-pressed="false"><i class="ph ph-eye-closed"></i><span>Test yourself</span></button>';
   wrap.before(bar);
   const btn = bar.querySelector('button')!;
+  const hint = bar.querySelector<HTMLElement>('.tbl-hint')!;
+  const covered = new Set<number>();
+  const paint = () => {
+    heads.forEach((th, c) => {
+      th.classList.toggle('col-covered', covered.has(c));
+      if (table.classList.contains('covered')) th.setAttribute('aria-pressed', String(covered.has(c)));
+      else th.removeAttribute('aria-pressed');
+    });
+    for (const tr of rows) Array.from(tr.cells).forEach((td, c) => td.classList.toggle('cov', covered.has(c)));
+  };
   btn.addEventListener('click', () => {
     const on = !table.classList.contains('covered');
     table.classList.toggle('covered', on);
+    covered.clear();
+    // Start with every column but the first covered.
+    if (on) heads.forEach((_, c) => c > 0 && covered.add(c));
     table.querySelectorAll('td.shown').forEach((td) => td.classList.remove('shown'));
+    heads.forEach((th) => (on ? th.setAttribute('role', 'button') : th.removeAttribute('role')));
+    heads.forEach((th) => (on ? (th.tabIndex = 0) : th.removeAttribute('tabindex')));
     btn.setAttribute('aria-pressed', String(on));
-    btn.querySelector('span')!.textContent = on ? 'Tap a cell to check · uncover' : 'Cover answers';
+    btn.querySelector('span')!.textContent = on ? 'Done' : 'Test yourself';
+    hint.hidden = !on;
+    paint();
+  });
+  const toggleCol = (c: number) => {
+    if (!table.classList.contains('covered')) return;
+    if (covered.has(c)) covered.delete(c);
+    else covered.add(c);
+    rows.forEach((tr) => tr.cells[c]?.classList.remove('shown'));
+    paint();
+  };
+  heads.forEach((th, c) => {
+    th.addEventListener('click', () => toggleCol(c));
+    th.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        toggleCol(c);
+      }
+    });
   });
   table.addEventListener('click', (e) => {
     const td = (e.target as HTMLElement).closest('td');
-    if (td && table.classList.contains('covered') && td.cellIndex > 0) td.classList.toggle('shown');
+    if (td?.classList.contains('cov')) td.classList.toggle('shown');
   });
 }
 
