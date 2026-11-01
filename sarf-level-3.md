@@ -115,6 +115,33 @@ These four lessons give you the tools for the rest of the book: weighing a verb,
 | 2 (خُمَاسِيٌّ) | تَفَاعَلَ · تَفَعَّلَ · افْتَعَلَ · انْفَعَلَ · افْعَلَّ | تَجَادَلَ · تَطَهَّرَ · اغْتَسَلَ · انْشَرَحَ · احْمَرَّ |
 | 3 (سُدَاسِيٌّ) | اسْتَفْعَلَ | اسْتَقْبَلَ |
 
+**The ten forms at a glance.** English books number the patterns with Roman numerals, from Form I (the bare verb) to Form X. The letters in red are the extra letters each form adds. The present tense starts with يَـ or يُـ, the حَرْفُ الْمُضَارَعَةِ from Level 2.
+
+| Form | Past (الْمَاضِي) | Present (الْمُضَارِعُ) | Core meaning | Example |
+| --- | --- | --- | --- | --- |
+| I | فَعَلَ | يَفْعُلُ / يَفْعِلُ / يَفْعَلُ | The basic action. The present vowel has to be learned for each verb (its بَاب). | كَتَبَ يَكْتُبُ: to write |
+| II | فَ**عَّ**لَ | يُفَ**عِّ**لُ | Make someone do it, or do it a lot. | عَلَّمَ يُعَلِّمُ: to teach (to make someone know) |
+| III | فَ**ا**عَلَ | يُفَ**ا**عِلُ | Do it with or to another person. | كَاتَبَ يُكَاتِبُ: to write to someone |
+| IV | **أَ**فْعَلَ | يُفْعِلُ | Make something happen. Often turns a verb with no object into one with an object. | أَخْرَجَ يُخْرِجُ: to take out (to make go out) |
+| V | **تَ**فَ**عَّ**لَ | يَ**تَ**فَ**عَّ**لُ | Form II done to yourself: you take on the action. | تَعَلَّمَ يَتَعَلَّمُ: to learn (to teach yourself) |
+| VI | **تَ**فَ**ا**عَلَ | يَ**تَ**فَ**ا**عَلُ | Do it to each other, or together. | تَكَاتَبَ يَتَكَاتَبُ: to write to each other |
+| VII | **انْ**فَعَلَ | يَ**نْ**فَعِلُ | It happens to something, with no doer named. It never takes an object. | انْكَسَرَ يَنْكَسِرُ: to break, to get broken |
+| VIII | **ا**فْ**تَ**عَلَ | يَفْ**تَ**عِلُ | Do it for yourself, or to yourself. | اجْتَمَعَ يَجْتَمِعُ: to gather, to meet up |
+| IX | **ا**فْعَ**لَّ** | يَفْعَ**لُّ** | Become a colour, or get a mark on the body. | احْمَرَّ يَحْمَرُّ: to turn red |
+| X | **اسْتَ**فْعَلَ | يَ**سْتَ**فْعِلُ | Ask for it, or think of something as being so. | اسْتَغْفَرَ يَسْتَغْفِرُ: to ask forgiveness |
+
+Not every root uses every form. ك ت ب has Forms I, III, VI and VIII (اكْتَتَبَ, to sign up) in common use, but no Form IX. A dictionary tells you which forms exist.
+
+**Five rare forms (XI–XV).** Classical grammars list five more patterns. They are very rare, the book doesn't teach them, and you won't need them to read it. They are here so you can recognise one if you meet it. All of them make the meaning stronger.
+
+| Form | Past (الْمَاضِي) | Present (الْمُضَارِعُ) | Core meaning | Example |
+| --- | --- | --- | --- | --- |
+| XI | **ا**فْعَ**ا**لَّ | يَفْعَ**ا**لُّ | Like Form IX (a colour or a mark), but stronger. | احْمَارَّ يَحْمَارُّ: to turn deep red |
+| XII | **ا**فْعَ**وْ**عَلَ | يَفْعَ**وْ**عِلُ | Be very much so, or become more and more so. | اخْشَوْشَنَ يَخْشَوْشِنُ: to become very rough |
+| XIII | **ا**فْعَ**وَّ**لَ | يَفْعَ**وِّ**لُ | Do it hard or fast. | اجْلَوَّذَ يَجْلَوِّذُ: to hurry on |
+| XIV | **ا**فْعَ**نْ**لَلَ | يَفْعَ**نْ**لِلُ | Be stubborn or strong in a state. | اقْعَنْسَسَ يَقْعَنْسِسُ: to hold back, to refuse to move |
+| XV | **ا**فْعَ**نْ**لَى | يَفْعَ**نْ**لِي | Get ready, puffed up, as for a fight. | احْرَنْبَى يَحْرَنْبِي: to bristle up |
+
 - **مُتَعَدٍَّ** (transitive): the verb takes an object (مَفْعُولٌ بِهِ): نَشَرَ خَالِدٌ الْخَبَرَ. **لَازِمٌ** (intransitive): no object: انْتَشَرَ الْخَبَرُ. Drill 7 is built on this difference.
 
 **Watch out for:**
