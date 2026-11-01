@@ -1,0 +1,49 @@
+---
+import Base from '../layouts/Base.astro';
+import { BOOK, LESSONS } from '../lib/content';
+import { MEET } from '../lib/meta';
+import { href } from '../lib/urls';
+import { arHtml } from '../lib/arabic';
+
+const cols = ['nahw', 'sarf2', 'sarf3'] as const;
+---
+<Base title="Where the books meet" barTitle="Where the books meet" screen="meet" kind="nahw" backHref={href()}>
+  <main class="wrap mid">
+    <div class="kicker">Appendix</div>
+    <h1 style="font-size:clamp(28px,7vw,40px);margin:6px 0 6px">Where the books meet</h1>
+    <p class="meet-intro">Nahw looks at a word’s ending and its job in the sentence; sarf looks at how the word itself is built. These topics are taught from both sides, so read them together.</p>
+    <div class="meet-legend">
+      <span class="k-nahw"><span class="sq"></span>Nahw</span>
+      <span class="k-sarf"><span class="sq"></span>Sarf L2 and L3</span>
+    </div>
+    <div class="meet-scroll">
+      <table class="table meet-table">
+        <thead><tr><th>Topic</th><th>Nahw</th><th>Sarf L2</th><th>Sarf L3</th></tr></thead>
+        <tbody>
+          {MEET.map((m) => (
+            <tr>
+              <td>
+                <div class="topic" set:html={arHtml(m.en)} />
+                <div class="topic-ar arf" lang="ar" dir="rtl" style="text-align:left">{m.ar}</div>
+              </td>
+              {cols.map((c) => (
+                <td>
+                  <div class="cell">
+                    {m[c].length ? m[c].map((n) => {
+                      const z = LESSONS[`${c}-${n}`];
+                      return (
+                        <a class={`meet-chip k-${BOOK[c].kind}`} href={z.url}>
+                          <span style="font-variant-numeric:tabular-nums">L{z.n}</span><span class="arf" lang="ar" dir="rtl">{z.ar}</span>
+                        </a>
+                      );
+                    }) : <span class="none">—</span>}
+                  </div>
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </main>
+</Base>

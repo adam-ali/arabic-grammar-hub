@@ -1,9 +1,0 @@
-title: Arabic Grammar Hub
-description: Free nahw and sarf study notes — lesson summaries and week-by-week study plans.
-markdown: kramdown
-kramdown:
-  input: GFM
-  hard_wrap: false
-exclude:
-  - README.md
-  - LICENSE

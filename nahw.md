@@ -1,12 +1,6 @@
----
-layout: doc
-title: "Nahw — Lesson Summaries & Rules"
-description: "Summaries of all 40 lessons of دروس نحوية من المقدمة الآجرومية, with rules, worked إعراب and edge cases."
----
-
 # Nahw — Lesson Summaries & Rules
 
-Part of the [Arabic Grammar Hub](./). For verb forms, see the sarf plans: [Level 2](sarf-level-2.html) · [Level 3](sarf-level-3.html).
+Part of the [Arabic Grammar Hub](https://adam-ali.github.io/arabic-grammar-hub/). For verb forms, see the sarf plans: [Level 2](sarf-level-2.md) · [Level 3](sarf-level-3.md).
 
 ## How to use this reference
 

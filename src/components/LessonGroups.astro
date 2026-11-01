@@ -1,0 +1,82 @@
+---
+// A book's pages grouped by section. "toc" is the full contents list;
+// "mini" is the compact list used in the sidebar and the jump sheet.
+import { BOOK, LESSONS, type BookId } from '../lib/content';
+import { arHtml } from '../lib/arabic';
+
+interface Props {
+  book: BookId;
+  variant: 'toc' | 'mini';
+  current?: string;
+  showAr?: boolean;
+  showCount?: boolean;
+}
+const { book, variant, current, showAr = false, showCount = false } = Astro.props;
+const b = BOOK[book];
+const groups = [
+  ...(b.front.length ? [{ kicker: 'Front matter', title: '', introHtml: '', range: '', ids: b.front, counted: false }] : []),
+  ...b.sections.map((s, i) => ({
+    kicker: b.sections.length > 1 ? `Section ${i + 1}` : 'Lessons',
+    title: s.title.charAt(0).toUpperCase() + s.title.slice(1),
+    introHtml: s.introHtml,
+    range: `Lessons ${LESSONS[s.ids[0]].n}–${LESSONS[s.ids[s.ids.length - 1]].n}`,
+    ids: s.ids,
+    counted: true,
+  })),
+  ...(b.back.length ? [{ kicker: 'Back matter', title: '', introHtml: '', range: '', ids: b.back, counted: false }] : []),
+];
+---
+{variant === 'toc' ? groups.map((g) => (
+  <section class="toc-group">
+    <div class="toc-group-head">
+      <span class="kicker">{g.kicker}</span>
+      {g.range && <span>{g.range}</span>}
+      {g.counted && <span class="count" data-sec-count={g.ids.join(',')}>{g.ids.length} lessons</span>}
+    </div>
+    {g.title && <h2 set:html={arHtml(g.title)} />}
+    {g.introHtml && <div class="toc-intro" set:html={g.introHtml} />}
+    <div class="toc-list">
+      {g.ids.map((id) => {
+        const l = LESSONS[id];
+        return (
+          <a class="toc-row row-rule" href={l.url}>
+            <i class="st ph ph-circle" data-st={id}></i>
+            <span class="line1">
+              <span class="num">{l.matter ?? `Lesson ${l.n}`}</span>
+              <span class="en" set:html={arHtml(l.en)} />
+              <span class="arf" lang="ar" dir="rtl">{l.ar}</span>
+            </span>
+            <span class="line2">
+              <span class="pill" data-pill={id}>Not started</span>
+              {l.checkpoint && <span class="score" data-score={id} hidden><i class="ph ph-check-square-offset"></i><span></span></span>}
+              {l.pages && <span>{l.pages}</span>}
+              <span data-seen={id}></span>
+              <span class="here" data-here={id} hidden>· You are here</span>
+            </span>
+          </a>
+        );
+      })}
+    </div>
+  </section>
+)) : groups.map((g) => (
+  <>
+    <a class="mini-head" href={LESSONS[g.ids[0]].url}>
+      <span>
+        <span class="kicker">{g.kicker}</span>
+        {g.title && <span class="t" set:html={arHtml(g.title)} />}
+      </span>
+      {showCount && g.counted && <span class="c" data-sec-count={g.ids.join(',')}></span>}
+    </a>
+    {g.ids.map((id) => {
+      const l = LESSONS[id];
+      return (
+        <a class="mini-row" href={l.url} aria-current={id === current ? 'page' : undefined}>
+          <i class="st ph ph-circle" data-st={id}></i>
+          <span class="num">{l.n}</span>
+          <span class="en" set:html={arHtml(l.en)} />
+          {showAr && <span class="arf" lang="ar" dir="rtl">{l.ar}</span>}
+        </a>
+      );
+    })}
+  </>
+))}

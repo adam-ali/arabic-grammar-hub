@@ -1,0 +1,41 @@
+---
+import { BOOK, type BookId } from '../lib/content';
+import { href } from '../lib/urls';
+import type { Screen } from '../layouts/Base.astro';
+
+interface Props {
+  screen: Screen;
+  barTitle: string;
+  book?: BookId;
+  backHref?: string;
+}
+const { screen, barTitle, book, backHref } = Astro.props;
+const b = BOOK[book ?? 'nahw'];
+const cur = (on: boolean) => (on ? 'page' : undefined);
+---
+<header class="topbar">
+  {backHref && (
+    <a class="btn btn-icon narrow-only" href={backHref} aria-label="Back"><i class="ph ph-caret-left"></i></a>
+  )}
+  <a class="brand" href={href()}>
+    <span class="brand-mark" lang="ar" aria-hidden="true">ع</span>
+    <span class="brand-title"><span class="wide-only">Arabic Grammar Hub</span><span class="narrow-only">{barTitle}</span></span>
+  </a>
+  <nav class="topnav wide-only" aria-label="Main">
+    <a href={href()} aria-current={cur(screen === 'library')}>Library</a>
+    {book
+      ? <a href={b.url} aria-current={cur(screen === 'toc' || screen === 'lesson')}>{b.title}</a>
+      : <a href={b.url} data-nav-book>{b.title}</a>}
+    <a href={href('progress/')} aria-current={cur(screen === 'dashboard')}>Progress</a>
+    <a href={href('meet/')} aria-current={cur(screen === 'meet')}>Where the books meet</a>
+  </nav>
+  <div class="spacer"></div>
+  <a class="search-box wide-only" href={href('search/')} data-search-link>
+    <i class="ph ph-magnifying-glass" style="font-size:16px"></i>Search lessons<span class="ar" lang="ar">· ابْحَثْ</span><kbd>/</kbd>
+  </a>
+  <a class="btn btn-icon narrow-only" href={href('search/')} aria-label="Search"><i class="ph ph-magnifying-glass"></i></a>
+  <a class="btn btn-icon narrow-only" href={href('progress/')} aria-label="Progress"><i class="ph ph-chart-line-up"></i></a>
+  <button class="btn btn-icon" type="button" data-theme-toggle aria-label="Toggle dark mode">
+    <i class="ph ph-moon theme-dark-hide"></i><i class="ph ph-sun theme-light-hide"></i>
+  </button>
+</header>

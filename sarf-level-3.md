@@ -1,12 +1,6 @@
----
-layout: doc
-title: "Sarf Level 3 — Study Plan"
-description: "A 21-week, lesson-by-lesson study plan for sarf Book 2 (Level 3): the ten forms, weak and doubled verbs, the passive and dictionaries."
----
-
 # Sarf Level 3 — Study Plan
 
-Part of the [Arabic Grammar Hub](./). The book before this one is the [Sarf Level 2 study plan](sarf-level-2.html); the companion nahw reference is [Nahw — Lesson Summaries & Rules](nahw.html).
+Part of the [Arabic Grammar Hub](https://adam-ali.github.io/arabic-grammar-hub/). The book before this one is the [Sarf Level 2 study plan](sarf-level-2.md); the companion nahw reference is [Nahw — Lesson Summaries & Rules](nahw.md).
 
 ## How to use this plan
 

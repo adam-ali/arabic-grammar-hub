@@ -1,0 +1,57 @@
+---
+import '@fontsource/inter/400.css';
+import '@fontsource/inter/500.css';
+import '@fontsource/inter/600.css';
+import '@fontsource/scheherazade-new/arabic-400.css';
+import '@fontsource/scheherazade-new/arabic-500.css';
+import '../styles/icons.css';
+import '../styles/nocturne.css';
+import '../styles/app.css';
+import Header from '../components/Header.astro';
+import { clientData, type BookId, type Kind } from '../lib/content';
+import { href } from '../lib/urls';
+
+export type Screen = 'library' | 'toc' | 'lesson' | 'dashboard' | 'search' | 'meet';
+interface Props {
+  title: string;
+  barTitle: string;
+  screen: Screen;
+  kind: Kind;
+  book?: BookId;
+  backHref?: string;
+  description?: string;
+}
+const { title, barTitle, screen, kind, book, backHref, description } = Astro.props;
+const docTitle = screen === 'library' ? 'Arabic Grammar Hub' : `${title} · Arabic Grammar Hub`;
+const desc = description ?? 'Free nahw and sarf study notes: lesson summaries for al-Ājurrūmiyyah and week-by-week plans for sarf Levels 2 and 3.';
+// Embedded for the browser scripts. Escape "<" so the JSON can't close the tag.
+const json = JSON.stringify(clientData()).replace(/</g, '\\u003c');
+---
+<!doctype html>
+<html lang="en" data-screen={screen}>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{docTitle}</title>
+<meta name="description" content={desc}>
+<link rel="icon" href={href('favicon.svg')} type="image/svg+xml">
+<script is:inline>
+  // Set theme and sidebar before first paint.
+  (function () {
+    var d = document.documentElement, t;
+    try { t = localStorage.getItem('agh.theme'); if (localStorage.getItem('agh.sidebar') === 'hidden') d.dataset.sidebar = 'hidden'; } catch (e) {}
+    if (!t) t = window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    d.dataset.theme = t;
+  })();
+</script>
+</head>
+<body class={`k-${kind}`}>
+<Header screen={screen} barTitle={barTitle} book={book} backHref={backHref} />
+<slot />
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+<script type="application/json" id="agh-data" set:html={json}></script>
+<script>
+  import '../scripts/app';
+</script>
+</body>
+</html>
