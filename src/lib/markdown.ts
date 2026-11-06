@@ -157,15 +157,15 @@ function treeEl(src: string): Element {
   ]);
 }
 
-/** A sentence, one word per line: "word | short role | colour | full إِعْرَاب". */
+/** A sentence, one word per line: "word | short role | colour | full إِعْرَاب". An optional first line without "|" replaces the tap hint. */
 function parseEl(src: string): Element {
-  const rows = src
-    .split('\n')
-    .filter((l) => l.trim())
+  const lines = src.split('\n').filter((l) => l.trim());
+  const hint = lines[0].includes(' | ') ? 'Tap a word for its إِعْرَاب' : lines.shift()!;
+  const rows = lines
     .map((l) => l.split(/\s+\|\s+/).map((s) => s.trim()));
   return el('figure', { className: ['diagram', 'parse'] }, [
     el('div', { className: ['p-top'] }, [
-      el('span', { className: ['p-hint'] }, [txt('Tap a word for its إِعْرَاب')]),
+      el('span', { className: ['p-hint'] }, [txt(hint)]),
       el('button', { type: 'button', className: ['p-all'], ariaPressed: 'false' }, [txt('Show all')]),
     ]),
     el('div', { className: ['p-words'], dir: 'rtl' },
@@ -181,7 +181,11 @@ function parseEl(src: string): Element {
         el('li', { dataI: String(i), className: [`c-${role || 'harf'}`] }, [
           el('b', {}, [txt(word)]),
           txt(': '),
-          txt(full || label || ''),
+          // " / " in the explanation starts a new line, and **x** is bold.
+          ...(full || label || '').split(' / ').flatMap((line, j) => [
+            ...(j ? [el('br', {}, [])] : []),
+            ...line.split(/\*\*(.+?)\*\*/).map((part, k) => (k % 2 ? el('strong', {}, [txt(part)]) : txt(part))),
+          ]),
         ]),
       ),
     ),

@@ -22,7 +22,7 @@ const cur = (on: boolean) => (on ? 'page' : undefined);
     <span class="brand-title"><span class="wide-only">Arabic Grammar Hub</span><span class="narrow-only">{barTitle}</span></span>
   </a>
   <nav class="topnav wide-only" aria-label="Main">
-    <a href={href()} aria-current={cur(screen === 'library')}>Library</a>
+    <a href={href()} aria-current={cur(screen === 'library')}>Home</a>
     {book
       ? <a href={b.url} aria-current={cur(screen === 'toc' || screen === 'lesson')}>{b.title}</a>
       : <a href={b.url} data-nav-book>{b.title}</a>}

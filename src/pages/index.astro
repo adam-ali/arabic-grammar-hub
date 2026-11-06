@@ -9,12 +9,12 @@ const total = BOOKS.reduce((n, b) => n + b.lessonIds.length, 0);
 const first = LESSONS['nahw-1'];
 const C = 2 * Math.PI * 21;
 ---
-<Base title="Library" barTitle="Arabic Grammar Hub" screen="library" kind="nahw">
+<Base title="Home" barTitle="Arabic Grammar Hub" screen="library" kind="nahw">
   <main class="wrap">
     <div class="page-head">
       <div>
-        <div class="kicker">Library</div>
-        <h1>Three books, one study desk</h1>
+        <h1>Your Arabic grammar study hub</h1>
+        <p class="sub">Nahw and Sarf lessons, revision and practice</p>
         <p data-lib-summary>{total} lessons</p>
       </div>
       <div class="device-note"><i class="ph ph-device-mobile"></i>Saved on this device · no account</div>

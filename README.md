@@ -19,9 +19,9 @@ The site is at **https://adam-ali.github.io/arabic-grammar-hub/**. The Markdown 
 The site is built with [Astro](https://astro.build). The three Markdown files are the only source of lesson content: at build time `src/lib/content.ts` splits them into one page per lesson, so to fix a lesson, edit the Markdown.
 
 ```bash
-npm install
-npm run dev      # local server at http://localhost:4321/arabic-grammar-hub/
-npm run build    # type-check and build to dist/
+pnpm install
+pnpm dev          # local server at http://localhost:4321/arabic-grammar-hub/
+pnpm build        # type-check and build to dist/
 ```
 
 A few conventions the build relies on:
@@ -37,7 +37,7 @@ A few conventions the build relies on:
      *Answer:* مَرْفُوع.
   ```
 
-- Diagrams are fenced code blocks. A `tree` block draws a tree: the first line is the root, `- ` lines are branches and `  - ` lines are leaves. A `parse` block draws a sentence you can tap word by word, one word per line. Both use `label | note`, and an optional `{raf}`, `{nasb}`, `{jarr}`, `{jazm}`, `{verb}` or `{harf}` sets the colour:
+- Diagrams are fenced code blocks. A `tree` block draws a tree: the first line is the root, `- ` lines are branches and `  - ` lines are leaves. A `parse` block draws a sentence you can tap word by word, one word per line; an optional first line without `|` replaces the "Tap a word for its إِعْرَاب" hint and ` / ` in the last column starts a new line in the explanation and `**bold**` works there. Both use `label | note`, and an optional `{raf}`, `{nasb}`, `{jarr}`, `{jazm}`, `{verb}` or `{harf}` sets the colour:
 
   ````markdown
   ```tree
