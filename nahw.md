@@ -524,14 +524,33 @@ Examples: قَامَ زَيْدٌ الْعَاقِلُ · رَأَيْتُ زَ�
 
 **Rule:** pointing words are مَبْنِيّ (fixed) and match what they point to.
 
-|  | Near | Far |
+| مَا دَلَّ عَلَيْهِ | Near | Far |
 | --- | --- | --- |
 | مُفْرَد مُذَكَّر | هَذَا | ذَلِكَ |
 | مُفْرَد مُؤَنَّث, or a non-human plural | هَذِهِ | تِلْكَ |
-| مُثَنَّى مُذَكَّر | هَذَانِ / هَذَيْنِ | — |
-| مُثَنَّى مُؤَنَّث | هَاتَانِ / هَاتَيْنِ | — |
+| مُثَنَّى مُذَكَّر | هَذَانِ / هَذَيْنِ | ذَانِكَ / ذَيْنِكَ |
+| مُثَنَّى مُؤَنَّث | هَاتَانِ / هَاتَيْنِ | تَانِكَ / تَيْنِكَ |
 | human plural (both genders) | هَؤُلَاءِ | أُولَئِكَ |
 | a place | هُنَا | هُنَاكَ / هُنَالِكَ |
+
+**Worked examples: turning one pointing word into another.** Tap a sentence to see the answer.
+
+```drill
+Turn into far | هَذَا كِتَابٌ | ذَلِكَ كِتَابٌ
+Turn into far | هَذِهِ مَدْرَسَةٌ | تِلْكَ مَدْرَسَةٌ
+Turn into feminine (كِتَابٌ → مَجَلَّةٌ) | هَذَا كِتَابٌ | هَذِهِ مَجَلَّةٌ
+Turn into dual | هَذَا مُعَلِّمٌ | هَذَانِ مُعَلِّمَانِ
+Turn into dual | هَذِهِ طَالِبَةٌ | هَاتَانِ طَالِبَتَانِ
+Turn into far | هَذَانِ مُعَلِّمَانِ | ذَانِكَ مُعَلِّمَانِ
+Turn into far | هَاتَانِ طَالِبَتَانِ | تَانِكَ طَالِبَتَانِ
+Turn into plural (human) | هَذَا مُعَلِّمٌ | هَؤُلَاءِ مُعَلِّمُونَ
+Turn into far | هَؤُلَاءِ مُعَلِّمُونَ | أُولَئِكَ مُعَلِّمُونَ
+Turn into plural (non-human) | هَذَا قَلَمٌ | هَذِهِ أَقْلَامٌ
+Turn into far | هَذِهِ أَقْلَامٌ | تِلْكَ أَقْلَامٌ
+Turn into a place | هَذَا بَيْتٌ | هُنَاكَ بَيْتٌ
+```
+
+Check three things in order: **number** (مُفْرَد / مُثَنَّى / جَمْع), **gender or humanity**, then **distance** (near / far). The noun after the pointing word must change with them. In the dual, the case shows in the pointing word too: رَأَيْتُ هَذَيْنِ الْمُعَلِّمَيْنِ، رَأَيْتُ ذَيْنِكَ الْمُعَلِّمَيْنِ.
 
 **Edge cases:**
 

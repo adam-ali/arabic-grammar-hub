@@ -223,6 +223,20 @@ function stepsEl(src: string): Element {
   ]);
 }
 
+/** "task | sentence | answer": tap a row to open the answer. */
+function drillEl(src: string): Element {
+  const rows = src.split('\n').filter((l) => l.trim()).map((l) => l.split(/\s+\|\s+/).map((x) => x.trim()));
+  return el('figure', { className: ['diagram', 'drill'] }, rows.map(([task, from, answer]) =>
+    el('details', { className: ['d-row'] }, [
+      el('summary', {}, [
+        el('span', { className: ['d-task'] }, [txt(task)]),
+        el('span', { className: ['d-from'], dir: 'rtl' }, [txt(from)]),
+      ]),
+      el('div', { className: ['d-answer'], dir: 'rtl' }, [txt(answer)]),
+    ]),
+  ));
+}
+
 const LETTERS = '\\u0621-\\u064A\\u064B-\\u0652\\u0670\\u0640\\u0671-\\u06D3';
 const TAIL = new RegExp(`[${LETTERS}]+$`);
 const HEAD = new RegExp(`^[${LETTERS}]+`);
@@ -272,6 +286,7 @@ function rehypeNotes(opts: RenderOpts) {
         if (lang === 'language-tree') parent.children[index] = treeEl(src);
         else if (lang === 'language-parse') parent.children[index] = parseEl(src);
         else if (lang === 'language-steps') parent.children[index] = stepsEl(src);
+        else if (lang === 'language-drill') parent.children[index] = drillEl(src);
         else return;
         return SKIP;
       }
