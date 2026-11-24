@@ -336,6 +336,38 @@ function textOf(n: Element | ElementContent): string {
   return '';
 }
 
+/** Group each run of "Tab: title" paragraphs followed by a table into one tabbed set. */
+function groupTabs(root: HRoot) {
+  const isTab = (n?: ElementContent) => n?.type === 'element' && n.tagName === 'p' && /^Tab: /.test(textOf(n));
+  const isTable = (n: ElementContent) => n.type === 'element' && n.tagName === 'div' && ((n.properties.className as string[]) ?? []).includes('table-scroll');
+  const isCaption = (n: ElementContent) => n.type === 'element' && n.tagName === 'p' && n.children.length === 1 && (n.children[0] as Element).tagName === 'strong';
+  const out: HRoot['children'] = [];
+  // remark-rehype puts a newline text node between blocks.
+  const kids = root.children.filter((n) => n.type !== 'text' || n.value.trim());
+  for (let i = 0; i < kids.length; i++) {
+    if (!isTab(kids[i] as ElementContent)) {
+      out.push(kids[i]);
+      continue;
+    }
+    const buttons: ElementContent[] = [];
+    const panels: ElementContent[] = [];
+    for (; isTab(kids[i] as ElementContent); i++) {
+      const title = kids[i] as Element;
+      const first = title.children[0];
+      if (first.type === 'text') first.value = first.value.replace(/^Tab: /, '');
+      const n = buttons.length;
+      buttons.push(el('button', { type: 'button', role: 'tab', className: ['ctab'], ariaSelected: String(!n), dataTab: String(n) }, title.children));
+      // A panel holds the tables that follow, each optionally captioned by a bold-only line.
+      const body: ElementContent[] = [];
+      while (kids[i + 1] && (isTable(kids[i + 1] as ElementContent) || isCaption(kids[i + 1] as ElementContent))) body.push(kids[++i] as ElementContent);
+      panels.push(el('div', { role: 'tabpanel', className: ['ctab-panel'], dataPanel: String(n), ...(n ? { hidden: true } : {}) }, body));
+    }
+    i--;
+    out.push(el('div', { className: ['ctabs'] }, [el('div', { className: ['ctab-list'], role: 'tablist' }, buttons), ...panels]));
+  }
+  root.children = out;
+}
+
 const stringify = unified().use(rehypeStringify);
 const pipes = new Map<boolean, ReturnType<typeof makePipe>>();
 const makePipe = (roles: boolean) => unified().use(remarkRehype).use(rehypeNotes, { roles });
@@ -348,6 +380,7 @@ const pipe = (o: RenderOpts) => {
 export function renderNodes(nodes: RootContent[], o: RenderOpts = {}): string {
   if (!nodes.length) return '';
   const hast = pipe(o).runSync({ type: 'root', children: nodes } as MdRoot) as HRoot;
+  groupTabs(hast);
   return stringify.stringify(hast);
 }
 

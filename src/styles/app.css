@@ -697,3 +697,9 @@ button { font: inherit; color: inherit; }
 }
 
 .prose .table .nw { white-space: nowrap; }
+
+/* — tabbed verb tables — */
+.ctab-list { display: flex; gap: 6px; overflow-x: auto; margin: 18px 0 0; padding-bottom: 2px; }
+.ctab { flex: none; height: 32px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--hair); background: transparent; color: var(--muted); font: inherit; font-size: 15px; cursor: pointer; }
+.ctab[aria-selected="true"] { color: var(--book-ink); border-color: var(--book-line); background: var(--book-tint); }
+.ctab-panel[hidden] { display: none; }
