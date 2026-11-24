@@ -227,6 +227,17 @@ for (const btn of document.querySelectorAll('[data-sidebar-toggle]')) {
   });
 }
 
+// — tabbed verb tables —
+for (const set of page.querySelectorAll<HTMLElement>('.ctabs')) {
+  const tabs = set.querySelectorAll<HTMLButtonElement>('.ctab');
+  tabs.forEach((tab) =>
+    tab.addEventListener('click', () => {
+      tabs.forEach((t) => t.setAttribute('aria-selected', String(t === tab)));
+      set.querySelectorAll<HTMLElement>('.ctab-panel').forEach((p) => (p.hidden = p.dataset.panel !== tab.dataset.tab));
+    }),
+  );
+}
+
 // — jump sheet —
 const sheet = document.getElementById('jump') as HTMLDialogElement;
 document.querySelector('[data-open-sheet]')!.addEventListener('click', () => {
